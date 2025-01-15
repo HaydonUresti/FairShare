@@ -13,7 +13,15 @@ function App() {
 
   return (
     <div className="App">
-      <h1>{message}</h1>
+      <header>
+        <div id="logo">
+          <img id="logo" src={require("./images/fairShareLogo.webp")} alt="FairShare Logo" />
+        </div>
+      </header>
+      <div className="hero-div"><h1>{message}</h1>
+        <button>Sign Up Now!</button>
+      </div>
+      <footer></footer>
     </div>
   );
 }
