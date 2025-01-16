@@ -16,20 +16,16 @@ function App() {
   // }, []);
 
   return (
-    <div className="App">
-      <header>
-        <div id="logo">
-          <img id="logo" src={require("./images/fairShareLogo.webp")} alt="FairShare Logo" />
-        </div>
-        {/* <nav>
-          <ul>
-            <li><Link to='/'>Home</Link></li>
-          </ul>
-        </nav> */}
-        <Navbar />
-      </header>
-      <main>
-        <BrowserRouter>
+    <BrowserRouter>
+      <div className="App">
+        <header>
+          <div id="logo">
+            <img id="logo" src={require("./images/fairShareLogo.webp")} alt="FairShare Logo" />
+          </div>
+          <Navbar />
+        </header>
+        <main>
+
           <Routes>
             <Route index element={<Home />} />
             <Route path="/" element={<Home />} />
@@ -37,10 +33,11 @@ function App() {
             <Route path="/sign-in" element={<SignIn />} />
 
           </Routes>
-        </BrowserRouter>
-      </main>
-      <footer></footer>
-    </div>
+
+        </main>
+        <footer></footer>
+      </div>
+    </BrowserRouter>
   );
 }
 

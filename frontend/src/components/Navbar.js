@@ -1,12 +1,17 @@
+import React from "react"
+import { Link } from 'react-router-dom';
+
 export default function Navbar() {
   return (
     <nav className="nav">
       <ul>
         <li>
-          <a href="/home">Home</a>
+          {/* <a href="/home">Home</a> */}
+          <Link to="/home">Home</Link>
         </li>
         <li>
-          <a href="/sign-in">Sign In</a>
+          {/* <a href="/sign-in">Sign In</a> */}
+          <Link to="/sign-in">Sign In</Link>
         </li>
       </ul>
     </nav>
