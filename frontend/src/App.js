@@ -3,7 +3,7 @@ import './App.css';
 
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import React, { useEffect, useState } from 'react';
-import { getMessage } from './api';
+// import { getMessage } from './api';
 
 import Home from './pages/Home.js'
 import SignIn from './pages/SignIn.js';
@@ -11,9 +11,9 @@ import SignIn from './pages/SignIn.js';
 function App() {
   const [message, setMessage] = useState('');
 
-  useEffect(() => {
-    getMessage().then((data) => setMessage(data));
-  }, []);
+  // useEffect(() => {
+  //   getMessage().then((data) => setMessage(data));
+  // }, []);
 
   return (
     <div className="App">

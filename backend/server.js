@@ -9,6 +9,13 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 5000;
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "build", "index.html"));
+});
+
 app.use(cors());
 app.use(express.json());
 
@@ -18,9 +25,9 @@ mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTop
   .catch(err => console.log(err));
 
 // Test Route
-app.get('/', (req, res) => {
-  res.send('Hello from the backend!');
-});
+// app.get('/', (req, res) => {
+//   res.send('Hello from the backend!');
+// });
 
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
