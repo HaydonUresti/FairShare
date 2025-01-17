@@ -5,6 +5,8 @@ import { BrowserRouter, Routes, Route, useNavigate, Link } from 'react-router-do
 import React, { useEffect, useState } from 'react';
 // import { getMessage } from './api';
 
+import './styles/larger.css'
+
 import Home from './pages/Home.js'
 import SignIn from './pages/SignIn.js';
 import Navbar from './components/Navbar.js';
@@ -19,21 +21,19 @@ function App() {
     <BrowserRouter>
       <div className="App">
         <header>
-          <div id="logo">
+          <div id="logo-div">
             <img id="logo" src={require("./images/fairShareLogo.webp")} alt="FairShare Logo" />
           </div>
           <Navbar />
+          <button id='header-button'>Sign Up Now!</button>
         </header>
         <main>
-
           <Routes>
             <Route index element={<Home />} />
             <Route path="/" element={<Home />} />
             <Route path="/home" element={<Home />} />
             <Route path="/sign-in" element={<SignIn />} />
-
           </Routes>
-
         </main>
         <footer></footer>
       </div>
