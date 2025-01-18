@@ -17,6 +17,7 @@
 .env
 .env.development.local
 .env.test.local
+.vscode/
 .env.production.local
 
 npm-debug.log*
