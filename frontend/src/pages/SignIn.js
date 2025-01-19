@@ -13,7 +13,7 @@ export default function SignIn() {
     console.log({ name, email, password })
     e.preventDefault()
     axios.post(`${API_URL}/register`, { name, email, password })
-      .then(result => console.log(`The result is ${result}`))
+      .then(result => console.log(`The result is ${JSON.stringify(result)}`))
       .catch(err => console.log(err))
   }
 
@@ -64,8 +64,6 @@ export default function SignIn() {
             <button>Login</button>
           </form>
         </div>
-
-
       </div>
     </>
   )
