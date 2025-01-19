@@ -38,14 +38,15 @@ app.post('/register', (req, res) => {
       res.status(500).json({ error: err.message })
     })
 })
+
 // Test Route
 // app.get('/', (req, res) => {
 //   res.send('Hello from the backend!');
 // });
 
-// app.listen(PORT, () => {
-//   console.log(`Server running on http://localhost:${PORT}`)
-// });
+app.listen(PORT, () => {
+  console.log(`Server running on Port ${PORT}`)
+});
 
 app.use(express.static(path.join(__dirname, "build")))
 app.get("*", (req, res) => {
