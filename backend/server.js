@@ -44,11 +44,11 @@ app.post('/register', (req, res) => {
 //   res.send('Hello from the backend!');
 // });
 
-app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`)
-});
+// app.listen(PORT, () => {
+//   console.log(`Server running on http://localhost:${PORT}`)
+// });
 
 app.use(express.static(path.join(__dirname, "build")))
 app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "build", "index.html"))
+  res.sendFile(path.join(__dirname, "build", process.env.FRONTEND_URL))
 });
