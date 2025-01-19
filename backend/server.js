@@ -49,6 +49,11 @@ app.listen(PORT, () => {
 });
 
 app.use(express.static(path.join(__dirname, "build")))
+
 app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "build", process.env.FRONTEND_URL))
-});
+  if (process.env.NODE_ENV === "production") {
+    res.redirect(process.env.FRONTEND_URL)
+  } else {
+    res.sendFile(path.join(__dirname, "build", "index.html"))
+  }
+})
