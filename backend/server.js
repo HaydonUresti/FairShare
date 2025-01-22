@@ -5,7 +5,11 @@ import dotenv from 'dotenv'
 import path from "path"
 import { fileURLToPath } from "url"
 
-import StudentModel from './models/Student.js'
+import setupSwagger from './swagger.js'
+import studentRoutes from './routes/studentRoutes.js'
+import educatorRoutes from './routes/educatorRoutes.js'
+import userRoutes from './routes/userRoutes.js'
+
 
 // Load environment variables
 dotenv.config()
@@ -13,6 +17,7 @@ dotenv.config()
 const app = express()
 app.use(cors())
 app.use(express.json())
+setupSwagger(app)
 
 const PORT = process.env.PORT || 5000
 
@@ -22,33 +27,19 @@ const __dirname = path.dirname(__filename)
 
 // Database connection
 mongoose.connect(process.env.MONGODB_URI)
-  .then(() => console.log("MongoDB connected"))
+  .then(() => console.log('MongoDB connected'))
   .catch(err => {
     console.error('MongoDB connection error:', err)
   })
 
-app.post('/register', (req, res) => {
-  console.log('Request body:', req.body)
-  StudentModel.create(req.body)
-    .then(student => {
-      console.log('Student created:', student)
-      res.json(student)
-    })
-    .catch(err => {
-      res.status(500).json({ error: err.message })
-    })
-})
+// Route middlewares
+app.use('/api/users', userRoutes)
+app.use('api/students', studentRoutes)
+app.use('api/educators', educatorRoutes)
 
-// Test Route
-// app.get('/', (req, res) => {
-//   res.send('Hello from the backend!');
-// });
-
-app.listen(PORT, () => {
-  console.log(`Server running on Port ${PORT}`)
-});
 
 app.use(express.static(path.join(__dirname, "build")))
+
 
 app.get("*", (req, res) => {
   if (process.env.NODE_ENV === "production") {
@@ -57,3 +48,8 @@ app.get("*", (req, res) => {
     res.sendFile(path.join(__dirname, "build", "index.html"))
   }
 })
+
+
+app.listen(PORT, () => {
+  console.log(`Server running on Port ${PORT}`)
+});
