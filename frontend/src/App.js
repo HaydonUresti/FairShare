@@ -25,6 +25,14 @@ function App() {
             <img id="logo" src={require("./images/fairShareLogo.webp")} alt="FairShare Logo" />
           </div>
           <Navbar />
+          <button
+            id='logout-button'
+            onClick={() => {
+              localStorage.removeItem('token');
+              window.location.reload();
+            }}
+          >
+            Log Out</button>
           <button id='header-button'>Sign Up Now!</button>
         </header>
         <main>
