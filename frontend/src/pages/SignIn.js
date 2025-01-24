@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { loginUser, registerUser } from "../services/userService";
 
 const API_URL = process.env.REACT_APP_API_URL
 
@@ -23,26 +24,25 @@ export default function SignIn() {
   const handleRegister = async (e) => {
     e.preventDefault()
     try {
-      const result = await axios.post(`${API_URL}/api/users/register`, { name, email, password, userRole })
+      const result = registerUser(name, email, password, userRole)
       // clearForm()
       // navigate('')
     } catch (error) {
-      console.log(error)
+      console.log('Register failed:', error)
     }
   }
 
   const handleLogin = async (e) => {
     e.preventDefault()
-
     try {
-      const result = await axios.post(`${API_URL}/api/users/login`, { email, password })
-      console.log(`result: ${result}`)
+      const result = await loginUser(email, password)
       // clearForm()
-      // navigate('')
+      // navigate("/dashboard")
     } catch (error) {
-      console.log(error)
+      console.log('Login failed:', error)
     }
   }
+
 
   return (
     <>
@@ -98,7 +98,6 @@ export default function SignIn() {
               </select>
             </div>
             <button type="submit">Register</button>
-
           </form>
         </div>
         <div>

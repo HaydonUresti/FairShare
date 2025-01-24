@@ -43,14 +43,41 @@ const loginUser = async (req, res) => {
       return res.status(401).send({ message: "Invalid credentials" })
     }
     const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' })
-    res.cookie('token', token, { httpOnly: true, secure: true, maxAge: 3600000 }); // expires in 1 hour
-    res.status(200).send({ message: 'Logged in successfully' });
+
+    res.cookie('token', token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: process.env.NODE_ENV === 'production' ? 'None' : 'Lax',
+      maxAge: 3600000,  // Expires in 1 hour
+      path: '/'
+    })
+
+    res.status(200).send(
+      {
+        message: 'Logged in successfully',
+        user: {
+          id: user._id,
+          email: user.email,
+          role: user.userRole
+        }
+      });
   } catch (error) {
+    console.error("Error logging in user:", error);
     res.status(500).send({ message: "Server error", error })
   }
 }
 
-router.post("/register", registerUser)
+const logoutUser = async (req, res) => {
+  try {
+    res.clearCookie('token', { path: '/' })
+    res.status(200).send({ message: 'Logged out successfully' })
+  } catch (error) {
+    res.status(500).send({ message: 'Server error', error })
+  }
+}
+
+router.post('/logout', logoutUser)
+router.post('/register', registerUser)
 router.post('/login', loginUser)
 
 
