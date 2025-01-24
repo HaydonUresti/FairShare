@@ -19,8 +19,8 @@ dotenv.config()
 
 const app = express()
 app.use(cors({
-  origin: process.env.FRONTEND_URL, 
-  credentials: true, 
+  origin: process.env.FRONTEND_URL,
+  credentials: true,
 }))
 app.use(cookieParser())
 app.use(express.json())
@@ -64,22 +64,3 @@ app.get("*", (req, res) => {
 app.listen(PORT, () => {
   console.log(`Server running on Port ${PORT}`)
 })
-
-const handleLogin = async (e) => {
-  e.preventDefault();
-
-  try {
-    const result = await axios.post(
-      `${API_URL}/api/users/login`,
-      { email, password },
-      {
-        withCredentials: true
-      }
-    );
-    console.log(`result: ${JSON.stringify(result, null, 2)}`);
-    // clearForm()
-    // navigate('')
-  } catch (error) {
-    console.log(error);
-  }
-};

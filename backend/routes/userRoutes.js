@@ -47,7 +47,7 @@ const loginUser = async (req, res) => {
     res.cookie('token', token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
-      sameSite: process.env.NODE_ENV === 'production' ? 'None' : 'Lax',
+      sameSite: process.env.NODE_ENV === 'production' ? 'None' : 'Strict',
       maxAge: 3600000,  // Expires in 1 hour
       path: '/'
     })

@@ -1,35 +1,7 @@
-import swaggerJSDoc from 'swagger-jsdoc'
-import swaggerUi from 'swagger-ui-express'
 import fs from 'fs'
 import path from 'path'
 
-
-// const swaggerDefinition = {
-//   openapi: "3.0.0",
-//   info: {
-//     title: "FairShare API",
-//     version: "1.0.0",
-//     description: "API for FairShare project",
-//   },
-//   servers: [
-//     {
-//       url: "http://localhost:5000",
-//       description: "Development server",
-//     }
-//   ]
-// }
-
-// const options = {
-//   swaggerDefinition,
-//   apis: ["./models/*.js", "./routes/*.js"]
-// }
-
-// const swaggerSpec = swaggerJSDoc(options)
-
-// const setupSwagger = (app) => {
-//   app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec))
-// }
-
+// Load all swagger files in a folder and merge them into one object to be used by swagger-ui-express
 const loadSwaggerFiles = (folderPath) => {
   const files = fs.readdirSync(folderPath)
   const mergedPaths = files.reduce((acc, file) => {
@@ -48,7 +20,6 @@ const loadSwaggerFiles = (folderPath) => {
     paths: mergedPaths
   }
 }
-
 
 
 export default loadSwaggerFiles
