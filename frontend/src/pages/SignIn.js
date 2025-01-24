@@ -36,6 +36,14 @@ export default function SignIn() {
     e.preventDefault()
     try {
       const result = await loginUser(email, password)
+
+      if (result?.data?.user?.role === 'Educator') {
+        navigate('/educator-dashboard')
+      } else if (result?.data?.user?.role === 'Student') {
+        navigate('/group-selection')
+      } else {
+        console.log('Unknown user role:', result?.data.userRole)
+      }
       // clearForm()
       // navigate("/dashboard")
     } catch (error) {

@@ -9,6 +9,8 @@ import './styles/larger.css'
 
 import Home from './pages/Home.js'
 import SignIn from './pages/SignIn.js';
+import EducatorDashboard from './pages/EducatorDashboard.js'
+import GroupSelection from './pages/GroupSelection.js'
 
 import Navbar from './components/Navbar.js';
 import LogoutButton from './components/logoutButton.js'
@@ -32,6 +34,8 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/home" element={<Home />} />
             <Route path="/sign-in" element={<SignIn />} />
+            <Route path="/educator-dashboard" element={<EducatorDashboard />} />
+            <Route path="/group-selection" element={<GroupSelection />} />
           </Routes>
         </main>
         <footer></footer>
