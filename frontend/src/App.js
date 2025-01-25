@@ -1,8 +1,10 @@
 
 import { BrowserRouter, Routes, Route, useNavigate, Link } from 'react-router-dom'
 
-import { logoutUser } from './services/userService.js';
+import { logoutUser } from './services/userService.js'
 
+import ProtectedRoute from './components/ProtectedRoute.js'
+import Unauthorized from './pages/Unauthorized.js'
 
 import './App.css';
 import './styles/larger.css'
@@ -34,8 +36,19 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/home" element={<Home />} />
             <Route path="/sign-in" element={<SignIn />} />
-            <Route path="/educator-dashboard" element={<EducatorDashboard />} />
-            <Route path="/group-selection" element={<GroupSelection />} />
+            <Route path="/unauthorized" element={<Unauthorized />} />
+
+            {/* Protected Routes - Educators can access everything, Students are restricted */}
+            {/* Educators only */}
+            <Route element={<ProtectedRoute allowedRoles={['Educator']} />}>
+              <Route path="/educator-dashboard" element={<EducatorDashboard />} />
+            </Route>
+
+            {/* Educators and Students */}
+            <Route element={<ProtectedRoute allowedRoles={['Educator', 'Student']} />}>
+              <Route path="/educator-dashboard" element={<EducatorDashboard />} />
+              <Route path="/group-selection" element={<GroupSelection />} />
+            </Route>
           </Routes>
         </main>
         <footer></footer>

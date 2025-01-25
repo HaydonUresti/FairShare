@@ -12,6 +12,10 @@ export const loginUser = async (email, password) => {
       }
     );
     console.log(`Login result: ${JSON.stringify(result, null, 2)}`)
+    if (result.data) {
+      localStorage.setItem('authToken', result.data.token)
+      localStorage.setItem('userRole', result.data.user.role)
+    }
     return result
   } catch (error) {
     console.error("Login failed:", error)
@@ -40,9 +44,37 @@ export const registerUser = async (name, email, password, userRole) => {
 export const logoutUser = async () => {
   try {
     console.log('Logging out...')
-    const result = await axios.post('http://localhost:5000/api/users/logout', {}, { withCredentials: true });
-    console.log(result.data.message)
+    localStorage.removeItem('authToken')
+    localStorage.removeItem('userRole')
   } catch (error) {
     console.error('Error logging out:', error)
   }
 }
+
+
+// 3️ Frontend: Use Token in Protected Requests
+// When making authenticated requests, include the token in the Authorization header.
+
+//  Example: Fetch User Data
+// js
+// Copy
+// Edit
+// const fetchUserData = async () => {
+//   const token = localStorage.getItem("authToken"); // Get token from localStorage
+
+//   if (!token) {
+//     console.error("No token found, user is not authenticated.");
+//     return;
+//   }
+
+//   try {
+//     const response = await axios.get("http://localhost:5000/api/users/profile", {
+//       headers: { Authorization: `Bearer ${token}` }
+//     });
+
+//     console.log("User Data:", response.data);
+//   } catch (error) {
+//     console.error("Error fetching user data:", error.response?.data?.message || error.message);
+//   }
+// };
+//  Every protected request includes the Authorization: Bearer <token> header.
