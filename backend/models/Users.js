@@ -19,8 +19,11 @@ const UserSchema = new mongoose.Schema({
         type: String,
         enum: ['Student', 'Educator'],
         required: true,
-    }
-
+    },
+    groups: {
+        type: [String],
+        required: true,
+    },
 })
 
 const UserModel = mongoose.model('users', UserSchema)

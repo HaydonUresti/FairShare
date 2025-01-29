@@ -12,7 +12,7 @@ import loadSwaggerFiles from './swagger.js'
 import studentRoutes from './routes/studentRoutes.js'
 import educatorRoutes from './routes/educatorRoutes.js'
 import userRoutes from './routes/userRoutes.js'
-
+import groupRoutes from './routes/groupRoutes.js'
 
 // Load environment variables
 dotenv.config()
@@ -45,6 +45,7 @@ mongoose.connect(process.env.MONGODB_URI)
 
 // Route middlewares
 app.use('/api/users', userRoutes)
+app.use('/api/groups', groupRoutes)
 app.use('/api/students', studentRoutes)
 app.use('/api/educators', educatorRoutes)
 

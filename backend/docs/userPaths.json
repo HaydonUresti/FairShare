@@ -233,5 +233,75 @@
         }
       }
     }
+  },
+  "/api/users/getUserIdByEmail": {
+    "get": {
+      "tags": [
+        "Users"
+      ],
+      "summary": "Get user ID by email",
+      "description": "This endpoint returns the user ID by email.",
+      "parameters": [
+        {
+          "name": "email",
+          "in": "query",
+          "description": "The email of the user",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "responses": {
+        "200": {
+          "description": "User ID returned successfully",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "userId": {
+                    "type": "string",
+                    "example": "5f7b1b7b7f3b7b0017b7f3b7"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "400": {
+          "description": "Email is not registered",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "message": {
+                    "type": "string",
+                    "example": "Email is not registered"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "500": {
+          "description": "Server error",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "message": {
+                    "type": "string",
+                    "example": "Server error"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
   }
 }

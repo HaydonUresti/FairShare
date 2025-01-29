@@ -1,21 +1,25 @@
 import mongoose from 'mongoose'
 
 const GroupSchema = new mongoose.Schema({
-    name: {
+    groupName: {
         type: String,
         required: true,
+        trim: true,
+        unique: true
     },
     description: {
         type: String,
         required: true,
+        trim: true
     },
     members: {
         type: Array,
         required: true,
     },
-    owner: {
+    ownerId: {
         type: String,
         required: true,
+        trim: true
     },
 })
 

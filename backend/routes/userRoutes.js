@@ -77,9 +77,24 @@ const logoutUser = async (req, res) => {
   }
 }
 
+
+const getUserIdByEmail = async (req, res) => {
+  try {
+    if (!req.query.email) {
+      return res.status(400).send({ message: 'Email is required' })
+    }
+    const response = await UserModel.findOne({ email: req.query.email })
+    const userId = response._id.toString()
+    res.status(200).send({ userId: userId })
+  } catch (error) {
+    res.status(500).send({ message: 'Server error', error })
+  }
+}
+
 router.post('/logout', logoutUser)
 router.post('/register', registerUser)
 router.post('/login', loginUser)
+router.get('/getUserIdByEmail', getUserIdByEmail)
 
 
 export default router

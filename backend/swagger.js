@@ -17,7 +17,73 @@ const loadSwaggerFiles = (folderPath) => {
       version: '1.0.0',
       description: 'API documentation for your app'
     },
-    paths: mergedPaths
+    paths: mergedPaths,
+    "components": {
+      "schemas": {
+        "Group": {
+          "type": "object",
+          "properties": {
+            "_id": {
+              "type": "string",
+              "example": "65d1f8a8c2a15b2f4d6a1a7b"
+            },
+            "name": {
+              "type": "string",
+              "example": "Math Study Group"
+            },
+            "owner": {
+              "type": "string",
+              "example": "65d1f8a8c2a15b2f4d6a1a7b"
+            },
+            "members": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "example": [
+                "65d1f8a8c2a15b2f4d6a1a7b",
+                "65d1f8a8c2a15b2f4d6a1a7c"
+              ]
+            }
+          }
+        },
+        "User": {
+          "type": "object",
+          "properties": {
+            "_id": {
+              "type": "string",
+              "example": "65d1f8a8c2a15b2f4d6a1a7b",
+            },
+            "name": {
+              "type": "string",
+              "example": "Bob Ross"
+            },
+            "email": {
+              "type": "string",
+              "example": "example@email.com"
+            },
+            "password": {
+              "type": "string",
+              "example": "password"
+            },
+            "userRole": {
+              "type": "string",
+              "example": "Student"
+            },
+            "groups": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "example": [
+                "65d1f8a8c2a15b2f4d6a1a7b",
+                "65d1f8a8c2a15b2f4d6a1a7c"
+              ]
+            }
+          }
+        }
+      }
+    }
   }
 }
 
