@@ -303,5 +303,85 @@
         }
       }
     }
+  },
+  "/api/users/{userId}": {
+    "get": {
+      "summary": "Get a specific user",
+      "description": "Get a user by their userId",
+      "tags": [
+        "Users"
+      ],
+      "parameters": [
+        {
+          "name": "userId",
+          "in": "path",
+          "required": true,
+          "description": "The userId of the user being searched for",
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "responses": {
+        "200": {
+          "description": "User object found",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/User"
+              }
+            }
+          }
+        },
+        "400": {
+          "description": "Missing userId",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "message": {
+                    "type": "string",
+                    "example": "userId is required"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "404": {
+          "description": "User not found",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "message": {
+                    "type": "string",
+                    "example": "User {userId} not found"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "500": {
+          "description": "Server error",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "message": {
+                    "type": "string",
+                    "example": "Server error"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
   }
 }

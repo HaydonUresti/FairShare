@@ -24,12 +24,17 @@
                 "description": {
                   "type": "string",
                   "description": "A description of the group"
+                },
+                "joinCode": {
+                  "type": "string",
+                  "description": "A code that allows users to join the group"
                 }
               },
               "required": [
                 "userId",
                 "groupName",
-                "description"
+                "description",
+                "joinCode"
               ]
             }
           }
@@ -97,86 +102,6 @@
                 "type": "array",
                 "items": {
                   "$ref": "#/components/schemas/Group"
-                }
-              }
-            }
-          }
-        },
-        "500": {
-          "description": "Server error",
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "message": {
-                    "type": "string",
-                    "example": "Server error"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  },
-  "/api/groups/{userId}/groups/{groupId}/addUser": {
-    "post": {
-      "tags": [
-        "Groups"
-      ],
-      "summary": "Add a user to a group",
-      "description": "This endpoint adds a user to a group.",
-      "parameters": [
-        {
-          "name": "userId",
-          "in": "path",
-          "required": true,
-          "schema": {
-            "type": "string"
-          }
-        },
-        {
-          "name": "groupId",
-          "in": "path",
-          "required": true,
-          "schema": {
-            "type": "string"
-          }
-        }
-      ],
-      "requestBody": {
-        "required": true,
-        "content": {
-          "application/json": {
-            "schema": {
-              "type": "object",
-              "properties": {
-                "email": {
-                  "type": "string",
-                  "description": "The email of the user to be added to the group"
-                }
-              },
-              "required": [
-                "email"
-              ]
-            }
-          }
-        }
-      },
-      "responses": {
-        "200": {
-          "description": "User added to group successfully",
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "message": {
-                    "type": "string",
-                    "example": "User added to group successfully"
-                  }
                 }
               }
             }
@@ -272,7 +197,7 @@
       }
     }
   },
-  "/api/groups/{groupId}/members": {
+  "/api/groups/{joinCode}/members": {
     "patch": {
       "summary": "Add a member to a group",
       "description": "Adds a user to a group by providing the group ID and user ID.",
@@ -281,10 +206,10 @@
       ],
       "parameters": [
         {
-          "name": "groupId",
+          "name": "joinCode",
           "in": "path",
           "required": true,
-          "description": "The ID of the group",
+          "description": "The code a user must provide to join the group",
           "schema": {
             "type": "string"
           }
@@ -396,6 +321,152 @@
                 "type": "array",
                 "items": {
                   "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          }
+        },
+        "404": {
+          "description": "Group not found",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "message": {
+                    "type": "string",
+                    "example": "Group not found"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "500": {
+          "description": "Server error",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "message": {
+                    "type": "string",
+                    "example": "Server error"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "/api/groups/{groupId}/members/{userId}": {
+    "delete": {
+      "tags": [
+        "Groups"
+      ],
+      "summary": "Remove a member from a group",
+      "description": "This endpoint removes a member from a group.",
+      "parameters": [
+        {
+          "name": "groupId",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "userId",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "responses": {
+        "200": {
+          "description": "Member removed successfully",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "message": {
+                    "type": "string",
+                    "example": "Member removed successfully"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "404": {
+          "description": "Member not found",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "message": {
+                    "type": "string",
+                    "example": "Member not found"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "500": {
+          "description": "Server error",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "message": {
+                    "type": "string",
+                    "example": "Server error"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "/api/groups/{groupId}": {
+    "delete": {
+      "tags": [
+        "Groups"
+      ],
+      "summary": "Delete a group",
+      "description": "This endpoint deletes a group.",
+      "parameters": [
+        {
+          "name": "groupId",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "responses": {
+        "200": {
+          "description": "Group deleted successfully",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "message": {
+                    "type": "string",
+                    "example": "Group deleted successfully"
+                  }
                 }
               }
             }

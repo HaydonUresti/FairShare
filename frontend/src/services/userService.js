@@ -10,11 +10,15 @@ export const loginUser = async (email, password) => {
       {
         withCredentials: true,
       }
-    );
+    )
     console.log(`Login result: ${JSON.stringify(result, null, 2)}`)
     if (result.data) {
+      console.log(result.data)
       localStorage.setItem('authToken', result.data.token)
       localStorage.setItem('userRole', result.data.user.role)
+      localStorage.setItem('userId', result.data.user.id)
+      localStorage.setItem('name', result.data.user.name)
+      localStorage.setItem('email', result.data.user.email)
     }
     return result
   } catch (error) {
@@ -47,10 +51,18 @@ export const logoutUser = async () => {
     localStorage.removeItem('authToken')
     localStorage.removeItem('userRole')
   } catch (error) {
-    console.error('Error logging out:', error)
+    console.error('Error logging out: ', error)
   }
 }
 
+export const getUserById = async (userId) => {
+  try {
+    const result = await axios.get(`${API_URL}/api/${userId}`)
+    return result.data
+  } catch (error) {
+    console.error('Error retrieving user: ', error)
+  }
+}
 
 // 3️ Frontend: Use Token in Protected Requests
 // When making authenticated requests, include the token in the Authorization header.

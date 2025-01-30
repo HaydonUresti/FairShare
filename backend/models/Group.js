@@ -4,8 +4,7 @@ const GroupSchema = new mongoose.Schema({
     groupName: {
         type: String,
         required: true,
-        trim: true,
-        unique: true
+        trim: true
     },
     description: {
         type: String,
@@ -21,6 +20,12 @@ const GroupSchema = new mongoose.Schema({
         required: true,
         trim: true
     },
+    joinCode: {
+        type: String,
+        required: true,
+        trim: true,
+        unique: true
+    }
 })
 
 

@@ -1,7 +1,6 @@
-import React, { useState } from "react";
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
-import { loginUser, registerUser } from "../services/userService";
+import React, { useState } from 'react'
+import { useNavigate } from "react-router-dom"
+import { loginUser, registerUser } from "../services/userService"
 
 const API_URL = process.env.REACT_APP_API_URL
 

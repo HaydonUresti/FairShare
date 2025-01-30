@@ -59,7 +59,8 @@ const loginUser = async (req, res) => {
         user: {
           id: user._id,
           email: user.email,
-          role: user.userRole
+          role: user.userRole,
+          name: user.name
         }
       });
   } catch (error) {
@@ -80,10 +81,11 @@ const logoutUser = async (req, res) => {
 
 const getUserIdByEmail = async (req, res) => {
   try {
-    if (!req.query.email) {
+    const userEmail = req.query.email
+    if (!userEmail) {
       return res.status(400).send({ message: 'Email is required' })
     }
-    const response = await UserModel.findOne({ email: req.query.email })
+    const response = await UserModel.findOne({ email: userEmail })
     const userId = response._id.toString()
     res.status(200).send({ userId: userId })
   } catch (error) {
@@ -91,10 +93,27 @@ const getUserIdByEmail = async (req, res) => {
   }
 }
 
+const getUserById = async (req, res) => {
+  try {
+    const userId = req.params.userId
+    if (!userId) {
+      return res.status(400).send({ message: 'userId is required' })
+    }
+    const response = await UserModel.findOne({ _id: userId })
+    if (!response) {
+      return res.status(404).send({ message: `User ${userId} not found` })
+    }
+    return res.status(200).send(response)
+  } catch (error) {
+    return res.status(500).send('Internal server error')
+  }
+}
+
 router.post('/logout', logoutUser)
 router.post('/register', registerUser)
 router.post('/login', loginUser)
 router.get('/getUserIdByEmail', getUserIdByEmail)
+router.get('/:userId', getUserById) // retrieve a user by their ID
 
 
 export default router

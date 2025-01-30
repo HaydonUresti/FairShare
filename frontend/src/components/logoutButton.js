@@ -10,7 +10,10 @@ const LogoutButton = () => {
       await logoutUser()
 
       localStorage.removeItem('token')
-      sessionStorage.removeItem('token')
+      localStorage.removeItem('userRole')
+      localStorage.removeItem('userId')
+      localStorage.removeItem('name')
+      localStorage.removeItem('email')
 
       navigate('/sign-in')
     } catch (error) {
