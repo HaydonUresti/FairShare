@@ -23,7 +23,7 @@ export default function SignIn() {
   const handleRegister = async (e) => {
     e.preventDefault()
     try {
-      const result = registerUser(name, email, password, userRole)
+      await registerUser(name, email, password, userRole)
       // clearForm()
       // navigate('')
     } catch (error) {

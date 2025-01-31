@@ -57,7 +57,7 @@ export const logoutUser = async () => {
 
 export const getUserById = async (userId) => {
   try {
-    const result = await axios.get(`${API_URL}/api/${userId}`)
+    const result = await axios.get(`${API_URL}/api/users/${userId}`)
     return result.data
   } catch (error) {
     console.error('Error retrieving user: ', error)

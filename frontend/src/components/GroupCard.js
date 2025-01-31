@@ -1,9 +1,41 @@
-import React from "react"
+import React, { useEffect, useState } from 'react'
 import { getUserById } from '../services/userService.js'
-// TO DO: 
-// have this display the user's name instead of their number
+
 
 const GroupCard = ({ group, isCreateNew, onClick }) => {
+  const [memberNames, setNames] = useState([])
+  const [loading, setLoading] = useState(true)
+  // loading is set to true so that the component can handle not having 
+  // the data at the time of loading as it is async
+
+
+  useEffect(() => {
+    if (!group?.members || group.members.length === 0) {
+      setLoading(false); // Ensure the loading state is updated
+      return;
+    }
+  
+    const fetchUserNames = async () => {
+      try {
+        const memberNames = await Promise.all(
+          group.members.map(async (memberId) => {
+            const member = await getUserById(memberId);
+            return member.name;
+          })
+        );
+        setNames(memberNames);
+      } catch (error) {
+        console.error("Error fetching user names:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+  
+    fetchUserNames();
+  }, [group?.members]); // Re-run when members change
+
+  if (loading) return <p>Loading members...</p>
+
   return (
     <div className={`group-card ${isCreateNew ? 'create-group' : ''}`} onClick={onClick}>
       {isCreateNew ? (
@@ -13,7 +45,7 @@ const GroupCard = ({ group, isCreateNew, onClick }) => {
           {/* fix this with correct attributes */}
           <h3>{group.groupName}</h3>
           <p>Description: {group.description}</p>
-          <p>Members: {group.members}</p>
+          <p>Members: {memberNames}</p>
         </>
       )}
     </div>

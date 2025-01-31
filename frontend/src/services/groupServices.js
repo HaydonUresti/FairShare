@@ -1,7 +1,7 @@
 import axios from 'axios'
 const API_URL = process.env.REACT_APP_API_URL
 
-export const createGroup = async (groupName, description) => {
+export const createGroup = async (groupName, description, joinCode) => {
   try {
     const userId = localStorage.getItem('userId')
     const result = await axios.post(
@@ -9,7 +9,8 @@ export const createGroup = async (groupName, description) => {
       {
         groupName,
         description,
-        userId
+        userId,
+        joinCode
       }
     )
     return result.data

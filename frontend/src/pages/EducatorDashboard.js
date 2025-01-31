@@ -1,4 +1,4 @@
-// the page that educator users are taken to after signing in
+// The page that educator users are taken to after signing in
 import React, { useEffect, useState } from 'react'
 import * as GroupService from '../services/groupServices.js'
 import EducatorGroupDisplay from '../components/EducatorGroupDisplay.js'

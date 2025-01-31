@@ -20,7 +20,7 @@ const createGroup = async (req, res) => {
     await newGroup.save()
     res.status(201).send({ message: 'Group created successfully' })
   } catch (error) {
-    res.status(500).send({ message: 'Server error' })
+    res.status(500).send({ message: 'Server error', error })
   }
 }
 
