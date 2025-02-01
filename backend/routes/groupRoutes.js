@@ -150,6 +150,10 @@ const deleteGroup = async (req, res) => {
   }
 }
 
+const getStudentGroups = (req, res) => {
+  
+}
+
 router.post('/:userId/createGroup', createGroup) // will create a group
 router.get('/:userId/groups', getEducatorGroups) // will get all groups owned by an educator
 router.get('/owner/:ownerId/groupName/:groupName', getGroup) // will get a single group
