@@ -20,7 +20,7 @@ import LogoutButton from './components/logoutButton.js'
 function App() {
 
   return (
-    <BrowserRouter>
+    <BrowserRouter basename='/'>
       <div className="App">
         <header>
           <div id="logo-div">
@@ -33,7 +33,7 @@ function App() {
         <main>
           <Routes>
             <Route index element={<Home />} />
-            <Route path="/" element={<Home />} />
+            {/* <Route path="/" element={<Home />} /> */}
             <Route path="/home" element={<Home />} />
             <Route path="/sign-in" element={<SignIn />} />
             <Route path="/unauthorized" element={<Unauthorized />} />
