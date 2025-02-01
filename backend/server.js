@@ -50,16 +50,22 @@ app.use('/api/students', studentRoutes)
 app.use('/api/educators', educatorRoutes)
 
 
-app.use(express.static(path.join(__dirname, "build")))
+if (process.env.NODE_ENV === "production") {
+  // Serve static assets like JS, CSS from the frontend's build folder
+  app.use(express.static(path.join(__dirname, "build")));
 
+  // Handle all routes by serving index.html (React Router takes over)
+  app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname, "../frontend/build", "index.html"));
+  });
+} else {
+  // Local development
+  app.use(express.static(path.join(__dirname, "../frontend/build")));
 
-app.get("*", (req, res) => {
-  if (process.env.NODE_ENV === "production") {
-    res.redirect(process.env.FRONTEND_URL)
-  } else {
-    res.sendFile(path.join(__dirname, "../frontend/build", "index.html"))
-  }
-})
+  app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname, "../frontend/ ", "index.html"));
+  });
+}
 
 
 app.listen(PORT, () => {
