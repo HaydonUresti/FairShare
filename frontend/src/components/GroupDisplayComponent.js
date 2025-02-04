@@ -1,19 +1,21 @@
 import React, { useState } from "react"
 import GroupCard from './GroupCard.js'
 import GroupModal from './GroupModal.js'
-import CreateGroupModal from './CreateGroupModal.js'
+import GroupActionModal from './GroupActionModal.js'
 
 
-const EducatorGroupDisplay = ({ groups }) => {
-  
+const GroupDisplayComponent = ({ groups, userRole }) => {
+
 
   const [showGroupModal, setShowGroupModal] = useState(false)
   const [selectedGroup, setSelectedGroup] = useState(null)
-  const [showCreateModal, setShowCreateModal] = useState(false)
+  const [showCreateOrJoinModal, setShowCreateOrJoinModal] = useState(false)
+
+  // const userRole = localStorage.getItem(userRole)
 
   const handleCardClick = (group) => {
-    if (group === 'create') {
-      setShowCreateModal(true)
+    if (['Educator', 'Student'].includes(group)) {
+      setShowCreateOrJoinModal(true)
     } else {
       setSelectedGroup(group)
       setShowGroupModal(true)
@@ -24,7 +26,7 @@ const EducatorGroupDisplay = ({ groups }) => {
   return (
     <div className="group-container">
       {/* "Create New Group" card */}
-      <GroupCard isCreateNew onClick={() => handleCardClick("create")} />
+      <GroupCard isInitialCard onClick={() => handleCardClick(userRole)} />
 
       {/* Render each group card */}
       {groups.map((group) => (
@@ -36,24 +38,27 @@ const EducatorGroupDisplay = ({ groups }) => {
         show={showGroupModal}
         onHide={() => setShowGroupModal(false)}
         title={selectedGroup?.groupName}
-        content={`Description: ${selectedGroup?.description}`}
+        content={selectedGroup}
         onSave={() => {
           console.log('Saving changes for:', selectedGroup)
           setShowGroupModal(false)
         }}
+        userRole={userRole}
       />
 
       {/* The Create New Group Modal */}
-      <CreateGroupModal
-        show={showCreateModal}
-        onHide={() => setShowCreateModal(false)}
+      <GroupActionModal
+        show={showCreateOrJoinModal}
+        onHide={() => setShowCreateOrJoinModal(false)}
         onSave={(newGroupData) => {
           console.log('Creating new group:', newGroupData)
-          setShowCreateModal(false)
+          setShowCreateOrJoinModal(false)
         }}
+        action={userRole}
       />
     </div>
   )
 }
 
-export default EducatorGroupDisplay
+
+export default GroupDisplayComponent

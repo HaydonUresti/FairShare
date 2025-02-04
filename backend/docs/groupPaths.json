@@ -506,5 +506,256 @@
         }
       }
     }
+  },
+  "/api/groups/getGroups": {
+    "get": {
+      "summary": "Get all the groups that a student is a part of",
+      "description": "Email is already registered",
+      "tags": [
+        "Groups"
+      ],
+      "parameters": [
+        {
+          "name": "userId",
+          "in": "query",
+          "description": "The userId of the user being searched for",
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "responses": {
+        "200": {
+          "description": "An array of groups",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/User"
+              }
+            }
+          }
+        },
+        "400": {
+          "description": "Missing userId",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "message": {
+                    "type": "string",
+                    "example": "userId is required"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "404": {
+          "description": "No groups found for user",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "message": {
+                    "type": "string",
+                    "example": "User {userId} not found"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "500": {
+          "description": "Server error",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "message": {
+                    "type": "string",
+                    "example": "Server error"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "/api/groups/{groupId}/tasks": {
+    "get": {
+      "tags": [
+        "Groups"
+      ],
+      "summary": "Get the tasks of a group.",
+      "description": "Gets all the tasks assinged to the given group.",
+      "parameters": [
+        {
+          "name": "groupId",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "responses": {
+        "200": {
+          "description": "Tasks successfully retrieved",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "message": {
+                    "type": "string",
+                    "example": "{ tasks: [ 67a19dd24c7a1b10d123405f ] }"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "400": {
+          "description": "Group not found",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "message": {
+                    "type": "string",
+                    "example": "Group not found"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "500": {
+          "description": "Server error",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "message": {
+                    "type": "string",
+                    "example": "Server error"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "/api/groups/{groupId}/task": {
+    "post": {
+      "tags": [
+        "Groups"
+      ],
+      "summary": "Create a new task and add it to a group.",
+      "description": "This endpoint creates a new task and assigns it to the specified group.",
+      "parameters": [
+        {
+          "name": "groupId",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "requestBody": {
+        "required": true,
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "title": {
+                  "type": "string",
+                  "description": "The title of the task to be created"
+                },
+                "description": {
+                  "type": "string",
+                  "description": "The description of the task to be created"
+                },
+                "estimatedTime": {
+                  "type": "string",
+                  "description": "The estimated time that the task may take to complete"
+                },
+                "taskWeight": {
+                  "type": "string",
+                  "description": "The expected difficulty of the task"
+                }
+              },
+              "required": [
+                "title",
+                "description",
+                "estimatedTime",
+                "taskWeight"
+              ]
+            }
+          }
+        }
+      },
+      "responses": {
+        "200": {
+          "description": "Group created successfully",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "message": {
+                    "type": "string",
+                    "example": "Group created successfully"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "400": {
+          "description": "Group not found",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "message": {
+                    "type": "string",
+                    "example": "Group not found"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "500": {
+          "description": "Server error",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "message": {
+                    "type": "string",
+                    "example": "Server error"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
   }
 }

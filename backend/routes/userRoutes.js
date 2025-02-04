@@ -33,14 +33,14 @@ const registerUser = async (req, res) => {
 }
 
 const loginUser = async (req, res) => {
-  const { email, password } = req.body;
+  const { email, password } = req.body
   if (!email || !password) {
     return res.status(400).send({ message: "All fields are required" })
   }
   try {
     const user = await UserModel.findOne({ email })
     if (!user || !userService.validatePassword(password, user.password)) {
-      return res.status(401).send({ message: "Invalid credentials" })
+      return res.status(401).send({ message: 'Invalid credentials' })
     }
     const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' })
 
@@ -64,8 +64,8 @@ const loginUser = async (req, res) => {
         }
       });
   } catch (error) {
-    console.error("Error logging in user:", error);
-    res.status(500).send({ message: "Server error", error })
+    console.error('Error logging in user:', error);
+    res.status(500).send({ message: 'Server error', error })
   }
 }
 

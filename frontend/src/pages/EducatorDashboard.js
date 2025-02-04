@@ -1,7 +1,7 @@
 // The page that educator users are taken to after signing in
 import React, { useEffect, useState } from 'react'
 import * as GroupService from '../services/groupServices.js'
-import EducatorGroupDisplay from '../components/EducatorGroupDisplay.js'
+import GroupDisplayComponent from '../components/GroupDisplayComponent.js'
 
 export default function EducatorDashboard() {
   const [groups, setGroups] = useState([])
@@ -24,7 +24,7 @@ export default function EducatorDashboard() {
   return (
     <>
       <div className="hero-div"><h1>Educator Dashboard</h1>
-        <EducatorGroupDisplay groups={groups} />
+        <GroupDisplayComponent groups={groups} userRole={'Educator'} />
       </div>
     </>
   )

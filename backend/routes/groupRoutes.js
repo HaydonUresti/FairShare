@@ -1,6 +1,8 @@
 import express from 'express'
 import GroupModel from '../models/Group.js'
 
+import { createTaskDocument } from '../services/taskService.js'
+
 const router = express.Router()
 
 const createGroup = async (req, res) => {
@@ -142,7 +144,7 @@ const deleteGroup = async (req, res) => {
 
     const result = await GroupModel.deleteOne({ _id: groupId })
     if (!result) {
-      res.status(400).send({ message: 'Group not found' })
+      return res.status(400).send({ message: 'Group not found' })
     }
     res.status(200).send({ result })
   } catch (error) {
@@ -150,9 +152,80 @@ const deleteGroup = async (req, res) => {
   }
 }
 
-const getStudentGroups = (req, res) => {
-  
+const getStudentGroups = async (req, res) => {
+  try {
+    const userId = req.query.userId
+    if (!userId) {
+      res.status(400).send({ message: 'UserId is required' })
+    }
+    const result = await GroupModel.find({ members: userId }).lean()
+    if (!result) {
+      res.status(400).send({ message: `No groups found for user: ${userId}` })
+    }
+    res.status(200).send({ result })
+  } catch (error) {
+    res.status(500).send({ message: 'Server error' })
+  }
 }
+
+// gets all the tasks for a group
+const getGroupTasks = async (req, res) => {
+  try {
+    const groupId = req.params.groupId
+
+    if (!groupId) {
+      res.status(400).send({ message: `Group ID is required` })
+    }
+    const response = await GroupModel.findById(groupId).populate('tasks').lean()
+    if (!response) {
+      return res.status(400).send({ message: `No tasks found for group: ${groupId}` })
+    }
+    const tasks = response.tasks
+    res.status(200).send({ tasks })
+  } catch {
+    res.status(500).send({ message: `Server error: ${error.message}` })
+  }
+}
+
+const createTaskForGroup = async (req, res) => {
+  try {
+    const groupId = req.params.groupId
+    const { title, description, estimatedTime, taskWeight } = req.body
+    const params = { title, description, estimatedTime, taskWeight }
+
+    // create the new task document and get the taskId
+    const taskResponse = await createTaskDocument(params)
+    const taskId = taskResponse._id
+
+    // add the new task Id to the group object
+
+    const response = await GroupModel.findOneAndUpdate(
+      { _id: groupId },
+      { $addToSet: { tasks: taskId } },
+      { new: true }
+    )
+    if (!response) {
+      return res.status(400).send({ message: `Group not found: ${groupId}` })
+    }
+    res.status(200).send({ response })
+  } catch (error) {
+    res.status(500).send({ message: `Server error: ${error.message}` })
+  }
+}
+
+// gets the progress of all the tasks for the entire group
+const getGroupProgress = async (res, req) => {
+  try {
+    // get all the list of tasks for the group 
+    // Make this a new function because we do this two places now
+
+    // retrieve each task with their details -> return 
+  } catch (error) {
+    res.status(500).send({ message: `Server error: ${error.message}` })
+  }
+}
+// To Do:
+// GET /groups/:groupId/students → Get all students in a group (with their task progress)
 
 router.post('/:userId/createGroup', createGroup) // will create a group
 router.get('/:userId/groups', getEducatorGroups) // will get all groups owned by an educator
@@ -161,5 +234,8 @@ router.patch('/:joinCode/members', addMember) // will add a member to a group
 router.get('/:groupId/members', getGroupMembers) // will get all the members of a group
 router.delete('/:groupId/members/:userId', removeMember) // will remove a member from a group
 router.delete('/:groupId', deleteGroup) // will delete a group
+router.get('/getGroups', getStudentGroups)
+router.get('/:groupId/tasks', getGroupTasks)
+router.post('/:groupId/task', createTaskForGroup)
 
 export default router
