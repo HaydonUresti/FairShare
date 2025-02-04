@@ -11,8 +11,6 @@ const GroupDisplayComponent = ({ groups, userRole }) => {
   const [selectedGroup, setSelectedGroup] = useState(null)
   const [showCreateOrJoinModal, setShowCreateOrJoinModal] = useState(false)
 
-  // const userRole = localStorage.getItem(userRole)
-
   const handleCardClick = (group) => {
     if (['Educator', 'Student'].includes(group)) {
       setShowCreateOrJoinModal(true)
@@ -26,7 +24,7 @@ const GroupDisplayComponent = ({ groups, userRole }) => {
   return (
     <div className="group-container">
       {/* "Create New Group" card */}
-      <GroupCard isInitialCard onClick={() => handleCardClick(userRole)} />
+      <GroupCard isInitialCard group={userRole} onClick={() => handleCardClick(userRole)} />
 
       {/* Render each group card */}
       {groups.map((group) => (

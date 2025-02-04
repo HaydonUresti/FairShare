@@ -42,7 +42,7 @@ const GroupCard = ({ group, isInitialCard, onClick }) => {
       {isInitialCard ?
         // Check if this is for an Educator or a Student
         (
-          (onClick === 'Educator') ? (<h3>+ Create New Group</h3>) :
+          (group === 'Educator') ? (<h3>+ Create New Group</h3>) :
             (<h3>+ Join New Group</h3>)
         ) : (
           <>
