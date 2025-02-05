@@ -592,7 +592,7 @@
         "Groups"
       ],
       "summary": "Get the tasks of a group.",
-      "description": "Gets all the tasks assinged to the given group.",
+      "description": "Gets all the tasks assigned to the given group.",
       "parameters": [
         {
           "name": "groupId",
@@ -724,6 +724,91 @@
           }
         },
         "400": {
+          "description": "Group not found",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "message": {
+                    "type": "string",
+                    "example": "Group not found"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "500": {
+          "description": "Server error",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "message": {
+                    "type": "string",
+                    "example": "Server error"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "/api/groups/{groupId}/taskDetails": {
+    "get": {
+      "summary": "Get details of all the tasks assigned to a group",
+      "description": "Gets the details and progess of all the tasks that a group has",
+      "tags": [
+        "Groups"
+      ],
+      "parameters": [
+        {
+          "name": "groupId",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "responses": {
+        "200": {
+          "description": "Tasks successfully retrieved",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "message": {
+                    "type": "string",
+                    "example": "{ tasks: [ 67a19dd24c7a1b10d123405f ] }"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "400": {
+          "description": "Missing groupId",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "message": {
+                    "type": "string",
+                    "example": "groupId is required"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "404": {
           "description": "Group not found",
           "content": {
             "application/json": {

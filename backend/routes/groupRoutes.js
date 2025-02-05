@@ -1,7 +1,8 @@
 import express from 'express'
 import GroupModel from '../models/Group.js'
 
-import { createTaskDocument } from '../services/taskService.js'
+import * as groupService from '../services/groupService.js'
+import { createTaskDocument, getTaskDetails } from '../services/taskService.js'
 
 const router = express.Router()
 
@@ -176,7 +177,7 @@ const getGroupTasks = async (req, res) => {
     if (!groupId) {
       res.status(400).send({ message: `Group ID is required` })
     }
-    const response = await GroupModel.findById(groupId).populate('tasks').lean()
+    const response = groupService.getGroupTasks(groupId)
     if (!response) {
       return res.status(400).send({ message: `No tasks found for group: ${groupId}` })
     }
@@ -214,11 +215,24 @@ const createTaskForGroup = async (req, res) => {
 }
 
 // gets the progress of all the tasks for the entire group
-const getGroupProgress = async (res, req) => {
+const getGroupProgress = async (req, res) => {
   try {
+    const tasks = []
+    const groupId = req.params.groupId
+    if (!groupId) {
+      return res.status(400).send({ message: 'groupId is required' })
+    }
     // get all the list of tasks for the group 
     // Make this a new function because we do this two places now
-
+    const groupData = await groupService.getGroupTasks(groupId)
+    if (!groupData) {
+      return res.status(404).send({ message: `No tasks found for group: ${groupId}` })
+    }
+    for (const task of groupData.tasks) {
+      const taskDetails = await getTaskDetails(task)
+      tasks.push(taskDetails)
+    }
+    res.status(200).send({ tasks })
     // retrieve each task with their details -> return 
   } catch (error) {
     res.status(500).send({ message: `Server error: ${error.message}` })
@@ -237,5 +251,6 @@ router.delete('/:groupId', deleteGroup) // will delete a group
 router.get('/getGroups', getStudentGroups)
 router.get('/:groupId/tasks', getGroupTasks)
 router.post('/:groupId/task', createTaskForGroup)
+router.get('/:groupId/taskDetails', getGroupProgress)
 
 export default router

@@ -13,6 +13,7 @@ import studentRoutes from './routes/studentRoutes.js'
 import educatorRoutes from './routes/educatorRoutes.js'
 import userRoutes from './routes/userRoutes.js'
 import groupRoutes from './routes/groupRoutes.js'
+import taskRoutes from './routes/taskRoutes.js'
 
 // Load environment variables
 dotenv.config()
@@ -48,6 +49,7 @@ app.use('/api/users', userRoutes)
 app.use('/api/groups', groupRoutes)
 app.use('/api/students', studentRoutes)
 app.use('/api/educators', educatorRoutes)
+app.use('/api/tasks', taskRoutes)
 
 
 app.use(express.static(path.join(__dirname, "build")))

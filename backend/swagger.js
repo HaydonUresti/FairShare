@@ -81,6 +81,96 @@ const loadSwaggerFiles = (folderPath) => {
               ]
             }
           }
+        }, "Task": {
+          "type": "object",
+          "properties": {
+            "_id": {
+              "type": "string",
+              "example": "65d1f8a8c2a15b2f4d6a1b2c"
+            },
+            "title": {
+              "type": "string",
+              "description": "The title of the task",
+              "example": "Algebra Homework"
+            },
+            "description": {
+              "type": "string",
+              "description": "A brief description of the task",
+              "example": "Complete the exercises on linear equations from pages 45-50."
+            },
+            "estimatedTime": {
+              "type": "number",
+              "description": "Estimated time to complete the task (in minutes)",
+              "example": 90
+            },
+            "timeLogged": {
+              "type": "number",
+              "description": "Total time logged for this task (in minutes)",
+              "default": 0,
+              "example": 30
+            },
+            "progress": {
+              "type": "array",
+              "description": "Progress tracking for each student assigned to the task",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "student": {
+                    "type": "string",
+                    "description": "The ID of the student",
+                    "example": "65d1f8a8c2a15b2f4d6a1d7e"
+                  },
+                  "timeWorked": {
+                    "type": "number",
+                    "description": "Total time the student has worked on the task (in minutes)",
+                    "default": 0,
+                    "example": 45
+                  },
+                  "completed": {
+                    "type": "boolean",
+                    "description": "Indicates whether the student has completed the task",
+                    "default": false,
+                    "example": true
+                  },
+                  "notes": {
+                    "type": "string",
+                    "description": "Notes related to the student's progress",
+                    "example": "Struggled with problem 4, needs review."
+                  },
+                  "grade": {
+                    "type": "number",
+                    "description": "Grade assigned to the student for the task",
+                    "minimum": 0,
+                    "maximum": 100,
+                    "example": 88
+                  }
+                }
+              }
+            },
+            "taskWeight": {
+              "type": "number",
+              "description": "The weight of the task in relation to other tasks",
+              "default": 0,
+              "example": 5
+            },
+            "createdAt": {
+              "type": "string",
+              "format": "date-time",
+              "description": "The date and time when the task was created",
+              "example": "2024-02-03T12:34:56.789Z"
+            },
+            "updatedAt": {
+              "type": "string",
+              "format": "date-time",
+              "description": "The date and time when the task was last updated",
+              "example": "2024-02-04T15:22:31.456Z"
+            }
+          },
+          "required": [
+            "title",
+            "estimatedTime",
+            "taskWeight"
+          ]
         }
       }
     }

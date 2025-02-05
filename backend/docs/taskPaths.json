@@ -1,0 +1,241 @@
+{
+  "/api/tasks/{taskId}": {
+    "get": {
+      "tags": [
+        "Tasks"
+      ],
+      "summary": "Get a task",
+      "description": "Get a task by its ID",
+      "parameters": [
+        {
+          "name": "taskId",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "responses": {
+        "200": {
+          "description": "Tasks successfully retrieved",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "message": {
+                    "type": "string",
+                    "example": "{ taskTitle: ..., timeLoged:..., progress:... ... }"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "400": {
+          "description": "Missing task",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "message": {
+                    "type": "string",
+                    "example": "taskId is required"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "404": {
+          "description": "Task not found",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "message": {
+                    "type": "string",
+                    "example": "No task found for Id: {taskId}"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "500": {
+          "description": "Server error",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "message": {
+                    "type": "string",
+                    "example": "Server error"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "patch": {
+      "tags": [
+        "Tasks"
+      ],
+      "summary": "Update a task",
+      "description": "Update the specified task with the provided data. Supports partial updates.",
+      "parameters": [
+        {
+          "name": "taskId",
+          "in": "path",
+          "required": true,
+          "description": "The ID of the task to be updated",
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "requestBody": {
+        "required": true,
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "title": {
+                  "type": "string",
+                  "example": "Updated Task Title"
+                },
+                "description": {
+                  "type": "string",
+                  "example": "This is the updated description for the task."
+                },
+                "estimatedTime": {
+                  "type": "number",
+                  "description": "Estimated time to complete the task (in minutes)",
+                  "example": 120
+                },
+                "timeLogged": {
+                  "type": "number",
+                  "description": "Total time logged for this task (in minutes)",
+                  "example": 45
+                },
+                "progress": {
+                  "type": "array",
+                  "description": "Progress details of students",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "student": {
+                        "type": "string",
+                        "example": "studentId123"
+                      },
+                      "timeWorked": {
+                        "type": "number",
+                        "description": "Time worked by the student (in minutes)",
+                        "example": 30
+                      },
+                      "completed": {
+                        "type": "boolean",
+                        "example": true
+                      },
+                      "notes": {
+                        "type": "string",
+                        "example": "Student has completed all required sections."
+                      },
+                      "grade": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 100,
+                        "example": 95
+                      }
+                    }
+                  }
+                },
+                "taskWeight": {
+                  "type": "number",
+                  "description": "The weight of the task in relation to other tasks",
+                  "example": 5
+                }
+              }
+            }
+          }
+        }
+      },
+      "responses": {
+        "200": {
+          "description": "Task successfully updated",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "message": {
+                    "type": "string",
+                    "example": "Task updated successfully"
+                  },
+                  "task": {
+                    "$ref": "#/components/schemas/Task"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "400": {
+          "description": "Bad Request - Invalid or missing parameters",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "message": {
+                    "type": "string",
+                    "example": "taskId is required"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "404": {
+          "description": "Not Found - Task does not exist",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "message": {
+                    "type": "string",
+                    "example": "No task found with ID: 12345"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "500": {
+          "description": "Internal Server Error",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "message": {
+                    "type": "string",
+                    "example": "Server error"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -39,9 +39,15 @@ const GroupModal = ({ show, onHide, title, content, onSave, userRole }) => {
         {
           (userRole === 'Educator') ?
             (
-              <Button variant='warning' onClick={handDeleteGroup}>
-                Delete Group
-              </Button>
+              <>
+                <Button variant='warning' onClick={handDeleteGroup}>
+                  Delete Group
+                </Button>
+
+                <Button variant='light' onClick={ }>
+                  Assign New Task
+                </Button>
+              </> 
             ) :
             (
               <Button variant='warning' onClick={handLeaveGroup}>

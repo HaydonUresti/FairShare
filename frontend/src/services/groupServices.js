@@ -98,7 +98,29 @@ export const getStudentGroups = async (userId) => {
   }
 }
 
+export const getGroupProgress = async (groupId) => {
+  try {
+    const response = await axios.get(
+      `${API_URL}/api/groups/${groupId}/task`,
+    )
+    return response.data
+  } catch (error) {
+    console.error('Group creation failed: ', error)
+    throw error
+  }
+}
 
 
+export const getGroupTasks = async (groupId) => {
+  try {
+    const response = await axios.get(
+      `${API_URL}/api/groups/${groupId}/tasks`,
+    )
+    return response.data
+  } catch (error) {
+    console.error('Group creation failed: ', error)
+    throw error
+  }
+}
 
 

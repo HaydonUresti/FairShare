@@ -29,3 +29,8 @@ export const createTaskDocument = async ({ title, description, estimatedTime, ta
     throw new Error(`Error creating new task: ${error.message}`)
   }
 }
+
+
+export const getTaskDetails = async (taskId) => {
+  return await TaskModel.findById(taskId)
+} 
