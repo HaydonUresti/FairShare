@@ -505,6 +505,73 @@
           }
         }
       }
+    },
+    "get": {
+      "tags": [
+        "Groups"
+      ],
+      "summary": "Get a group",
+      "description": "This endpoint gets a group by its ID.",
+      "parameters": [
+        {
+          "name": "groupId",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "responses": {
+        "200": {
+          "description": "Retrieved group successfully",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "message": {
+                    "type": "string",
+                    "example": "Retrieved group successfully"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "404": {
+          "description": "Group not found",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "message": {
+                    "type": "string",
+                    "example": "Group not found"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "500": {
+          "description": "Server error",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "message": {
+                    "type": "string",
+                    "example": "Server error"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "/api/groups/getGroups": {

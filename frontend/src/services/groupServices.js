@@ -123,4 +123,16 @@ export const getGroupTasks = async (groupId) => {
   }
 }
 
+export const getGroupById = async (groupId) => {
+  try {
+    const response = await axios.get(
+      `${API_URL}/api/groups/${groupId}`
+    )
+    return response.data
+  } catch (error) {
+    console.error('Group creation failed: ', error)
+    throw error
+  }
+}
+
 

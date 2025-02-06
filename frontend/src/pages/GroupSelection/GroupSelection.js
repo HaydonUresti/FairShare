@@ -1,7 +1,7 @@
 // the page that student users are taken to after signing in
 import React, { useEffect, useState } from "react"
-import GroupDisplayComponent from '../components/GroupDisplayComponent.js'
-import * as GroupService from '../services/groupServices.js'
+import GroupDisplayComponent from '../../components/GroupDisplayComponent/GroupDisplayComponent.js'
+import * as GroupService from '../../services/groupServices.js'
 
 
 
@@ -24,7 +24,7 @@ export default function GroupSelection() {
 
   return (
     <>
-      <div className="hero-div"><h1>Group Selection</h1>
+      <div className="join-group-div">
         <GroupDisplayComponent groups={groups} userRole={'Student'} />
       </div>
     </>

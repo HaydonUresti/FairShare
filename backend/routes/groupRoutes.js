@@ -222,8 +222,6 @@ const getGroupProgress = async (req, res) => {
     if (!groupId) {
       return res.status(400).send({ message: 'groupId is required' })
     }
-    // get all the list of tasks for the group 
-    // Make this a new function because we do this two places now
     const groupData = await groupService.getGroupTasks(groupId)
     if (!groupData) {
       return res.status(404).send({ message: `No tasks found for group: ${groupId}` })
@@ -233,13 +231,26 @@ const getGroupProgress = async (req, res) => {
       tasks.push(taskDetails)
     }
     res.status(200).send({ tasks })
-    // retrieve each task with their details -> return 
   } catch (error) {
     res.status(500).send({ message: `Server error: ${error.message}` })
   }
 }
-// To Do:
-// GET /groups/:groupId/students → Get all students in a group (with their task progress)
+
+const getGroupById = async (req, res) => {
+  try {
+    const groupId = req.params.groupId
+    if (!groupId) {
+      return res.status(400).send({ message: 'groupId is required' })
+    }
+    const result = await GroupModel.findById(groupId).lean()
+    if (!result) {
+      return res.status(404).send({ message: `Group not found for Id: ${groupId}` })
+    }
+    res.status(200).send({ groupData: result })
+  } catch (error) {
+    res.status(500).send({ message: `Server error: ${error.message}` })
+  }
+}
 
 router.post('/:userId/createGroup', createGroup) // will create a group
 router.get('/:userId/groups', getEducatorGroups) // will get all groups owned by an educator
@@ -248,9 +259,10 @@ router.patch('/:joinCode/members', addMember) // will add a member to a group
 router.get('/:groupId/members', getGroupMembers) // will get all the members of a group
 router.delete('/:groupId/members/:userId', removeMember) // will remove a member from a group
 router.delete('/:groupId', deleteGroup) // will delete a group
-router.get('/getGroups', getStudentGroups)
-router.get('/:groupId/tasks', getGroupTasks)
-router.post('/:groupId/task', createTaskForGroup)
-router.get('/:groupId/taskDetails', getGroupProgress)
+router.get('/getGroups', getStudentGroups) // get all the groups a student is in
+router.get('/:groupId/tasks', getGroupTasks) // get all the tasks assigned to a group
+router.post('/:groupId/task', createTaskForGroup) // create a task and assign it to a group
+router.get('/:groupId/taskDetails', getGroupProgress) // get a group's progress on a task
+router.get('/:groupId', getGroupById)
 
 export default router

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { getUserById } from '../services/userService.js'
+import { getUserById } from '../../services/userService.js'
 
 
 const GroupCard = ({ group, isInitialCard, onClick }) => {
@@ -25,7 +25,7 @@ const GroupCard = ({ group, isInitialCard, onClick }) => {
         );
         setNames(memberNames)
       } catch (error) {
-        console.error("Error fetching user names:", error)
+        console.error(`Error fetching user names: ${error}`)
       } finally {
         setLoading(false)
       }
@@ -48,7 +48,6 @@ const GroupCard = ({ group, isInitialCard, onClick }) => {
           <>
             {/* fix this with correct attributes */}
             <h3>{group.groupName}</h3>
-            <p>Description: {group.description}</p>
             <p>Members: {memberNames}</p>
           </>
         )}

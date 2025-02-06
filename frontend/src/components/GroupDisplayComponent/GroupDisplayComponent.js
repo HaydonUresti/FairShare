@@ -1,11 +1,10 @@
 import React, { useState } from "react"
-import GroupCard from './GroupCard.js'
-import GroupModal from './GroupModal.js'
-import GroupActionModal from './GroupActionModal.js'
+import GroupCard from '../GroupCard/GroupCard.js'
+import GroupModal from '../GroupModal.js'
+import GroupActionModal from '../GroupActionModal.js'
 
 
 const GroupDisplayComponent = ({ groups, userRole }) => {
-
 
   const [showGroupModal, setShowGroupModal] = useState(false)
   const [selectedGroup, setSelectedGroup] = useState(null)

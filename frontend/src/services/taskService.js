@@ -2,8 +2,15 @@ import axios from 'axios'
 const API_URL = process.env.REACT_APP_API_URL
 
 
-export const createNewTask = async (groupId, title, description, estimatedTime, taskWeight) => {
+export const createNewTask = async (groupId, taskDetails) => {
   try {
+    const { title, description, estimatedTime, taskWeight } = taskDetails
+    const missingValues = []
+    if (!title) missingValues.push('title')
+    if (!description) missingValues.push('description')
+    if (!estimatedTime) missingValues.push('estimatedTime')
+    if (!taskWeight) missingValues.push('taskWeight')
+
     const response = await axios.post(
       `${API_URL}/api/groups/${groupId}/task`,
       {
@@ -15,7 +22,7 @@ export const createNewTask = async (groupId, title, description, estimatedTime, 
     )
     return response.data
   } catch (error) {
-    console.error('Group creation failed: ', error)
+    console.error(`Group creation failed: ${error}`)
     throw error
   }
 }
@@ -27,7 +34,7 @@ export const getTaskById = async (taskId) => {
     )
     return response.data
   } catch (error) {
-    console.error('Group creation failed: ', error)
+    console.error(`Group creation failed: ${error}`)
     throw error
   }
 }
@@ -46,7 +53,7 @@ export const updateTask = async (taskId, updateData) => {
     }
     return response.data
   } catch (error) {
-    console.error('Group creation failed: ', error)
+    console.error(`Group creation failed: ${error}`)
     throw error
   }
 }

@@ -99,7 +99,13 @@ const GroupActionModal = ({ show, onHide, onSave, action }) => {
           Close
         </Button>
         <Button variant="primary" onClick={handleSubmission}>
-          Save Changes
+          {
+            (action === 'Educator') ? (
+              'Create Group'
+            ) : (
+              'Join Group'
+            )
+          }
         </Button>
       </Modal.Footer>
     </Modal>

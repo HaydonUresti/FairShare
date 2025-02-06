@@ -1,6 +1,74 @@
+@import url(./components/GroupCard/GroupCard.css);
+@import url(./components/GroupDisplayComponent/GroupDisplayComponent.css);
+@import url(./pages/GroupSelection/GroupSelection.css);
+
+:root {
+  --text-color: #424242;
+  --body-color: #F5F5F5;
+  --primary-color: #007ACC;
+  --secondary1-color: #66BB6A;
+  --secondary2-color: #FFA726;
+  --link-highlight-color: azure;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: var(--text-color);
+}
+
+header {
+  display: flex;
+  flex-direction: row;
+  background-color: var(--primary-color);
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px
+}
+
+#logo-div {
+  background-color: white;
+  border-radius: 5px;
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #0078d4;
+  padding: 10px 20px;
+  color: white;
+}
+
+nav ul {
+  display: flex;
+  list-style-type: none;
+  gap: 2em;
+}
+
+nav a {
+  color: var(--secondary2-color);
+}
+
 .App {
   text-align: center;
+  height: 100%;
 }
+
+* {
+  box-sizing: border-box;
+}
+
 
 .App-logo {
   height: 40vmin;
@@ -25,13 +93,14 @@
 }
 
 .App-link {
-  color: #61dafb;
+  color: #022129;
 }
 
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }

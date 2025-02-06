@@ -1,7 +1,7 @@
 // The page that educator users are taken to after signing in
 import React, { useEffect, useState } from 'react'
-import * as GroupService from '../services/groupServices.js'
-import GroupDisplayComponent from '../components/GroupDisplayComponent.js'
+import * as GroupService from '../../services/groupServices.js'
+import GroupDisplayComponent from '../../components/GroupDisplayComponent/GroupDisplayComponent.js'
 
 export default function EducatorDashboard() {
   const [groups, setGroups] = useState([])
@@ -14,7 +14,7 @@ export default function EducatorDashboard() {
         const retrievedGroups = response ? response.data : []
         setGroups(retrievedGroups)
       } catch (error) {
-        console.error('Error fetching groups:', error)
+        console.error(`Error fetching groups: ${error}`)
       }
     }
     fetchGroups()
@@ -23,8 +23,12 @@ export default function EducatorDashboard() {
 
   return (
     <>
-      <div className="hero-div"><h1>Educator Dashboard</h1>
-        <GroupDisplayComponent groups={groups} userRole={'Educator'} />
+      <div className='educator-dashboard'>
+        {/* <h1>Educator Dashboard</h1> */}
+        <div className="educator-group-display">
+          <GroupDisplayComponent groups={groups} userRole={'Educator'} />
+        </div>
+        <div className='data-view'><p>content</p></div>
       </div>
     </>
   )
