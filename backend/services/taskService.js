@@ -30,6 +30,17 @@ export const createTaskDocument = async ({ title, description, estimatedTime, ta
   }
 }
 
+export const deleteTaskDocument = async (taskId) => {
+  try {
+    const response = await TaskModel.deleteOne({ _id: taskId }
+    )
+    if (!response) {
+      throw new Error('Task not found')
+    }
+  } catch (error) {
+    throw new Error(`Error creating new task: ${error.message}`)
+  }
+}
 
 export const getTaskDetails = async (taskId) => {
   return await TaskModel.findById(taskId)

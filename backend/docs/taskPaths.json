@@ -34,7 +34,7 @@
           }
         },
         "400": {
-          "description": "Missing task",
+          "description": "Missing taskId",
           "content": {
             "application/json": {
               "schema": {

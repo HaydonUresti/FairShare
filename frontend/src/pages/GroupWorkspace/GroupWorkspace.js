@@ -3,7 +3,7 @@ import { useLocation } from 'react-router-dom'
 import { getGroupById } from '../../services/groupServices.js'
 import { getTaskById } from '../../services/taskService.js'
 
-import TaskCard from '../../components/TaskCard/TaskCard.js'
+import TaskDisplay from '../../components/TaskDisplayComponent/TaskDisplayComponent.js'
 
 export default function GroupWorkspace() {
   const location = useLocation()
@@ -13,13 +13,20 @@ export default function GroupWorkspace() {
   const [groupMembers, setGroupMembers] = useState([])
   const [groupDescription, setGroupDescription] = useState('A group')
   const [groupTasks, setGroupTasks] = useState([])
+  // const [loading, setLoading] = useState(true)
 
 
 
   useEffect(() => {
+    if (!groupData || !groupData.groupId) return
+    // if (!) {
+    // // See Group card, but this should probably go in task display
+
+    // }
     const fetchGroupData = async () => {
       try {
         const response = await getGroupById(groupData.groupId)
+        console.log("Fetched Group Data:", response.groupData)
         setGroupName(response.groupData.groupName)
         setGroupMembers(response.groupData.members)
         setGroupDescription(response.groupData.description)
@@ -28,25 +35,25 @@ export default function GroupWorkspace() {
       } catch (error) {
         console.error(`Error fetching groups: ${error}`)
       }
+      // finally {
+      //   setLoading(false)
+      // }
     }
     fetchGroupData()
-  })
+  }, [groupData])
 
-  const handleGetTaskData = async (taskId) => {
-    try {
-      const taskData = await getTaskById(taskId)
-      return taskData
-    } catch (error) {
-      console.error(`Error fetching task data: ${error}`)
-    }
-  }
 
   return (
     <div className='group-workspace'>
-      <h1>Group {groupName} Workspace</h1>
-      <div className='group-task-display'>
-        {/* This will break because it renders first. Fix this by doing what you did the to the cards or wherever you did that. */}
-        <TaskCard taskData={handleGetTaskData(groupTasks[0])}></TaskCard>
+      <div>
+        <h1>{groupName} Workspace</h1>
+      </div>
+      <div className='workspace-div'>
+        <div className='group-task-display'>
+          {/* This will break because it renders first. Fix this by doing what you did the to the cards or wherever you did that. */}
+          {/* <TaskCard taskData={handleGetTaskData(groupTasks[0])}></TaskCard> */}
+          <TaskDisplay taskIds={groupTasks}></TaskDisplay>
+        </div>
       </div>
     </div>
   )

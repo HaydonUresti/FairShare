@@ -1,0 +1,13 @@
+ .task-display-div {
+   display: flex;
+   flex-direction: row;
+   overflow-x: auto;
+   flex-wrap: nowrap;
+   overflow-y: hidden;
+   max-width: 100%;
+   width: 100%;
+  
+  overflow-x: auto;
+  overflow-y: hidden;
+  white-space: nowrap;
+ }

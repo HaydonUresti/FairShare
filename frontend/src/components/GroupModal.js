@@ -152,7 +152,7 @@ const GroupModal = ({ show, onHide, title, content, onSave, userRole }) => {
         <Button variant='secondary' onClick={onHide}>
           Close
         </Button>
-        {!assignTaskMode && (
+        {(userRole === 'Student') && (
           <Button variant='primary' onClick={navigateToWorkspace}>
             Workspace
           </Button>

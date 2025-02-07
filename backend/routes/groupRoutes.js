@@ -1,8 +1,9 @@
 import express from 'express'
 import GroupModel from '../models/Group.js'
+import mongoose from 'mongoose'
 
 import * as groupService from '../services/groupService.js'
-import { createTaskDocument, getTaskDetails } from '../services/taskService.js'
+import { createTaskDocument, getTaskDetails, deleteTaskDocument } from '../services/taskService.js'
 
 const router = express.Router()
 
@@ -252,6 +253,35 @@ const getGroupById = async (req, res) => {
   }
 }
 
+const deleteGroupTask = async (req, res) => {
+  try {
+    const groupId = req.params.groupId
+    if (!groupId) {
+      return res.status(400).send({ message: 'groupId is required' })
+    }
+    const taskId = req.params.taskId
+    if (!taskId) {
+      return res.status(400).send({ message: 'taskId is required' })
+    }
+    const deleteFromGroup = await GroupModel.findByIdAndUpdate(
+      groupId, // No need for { _id: groupId }
+      { $pull: { tasks: new mongoose.Types.ObjectId(taskId) } },
+      { new: true }
+    )
+
+    if (!deleteFromGroup) {
+      return res.status(400).send({ message: 'Task not found' })
+    }
+    const deleteTaskResponse = deleteTaskDocument(taskId)
+    if (!deleteTaskResponse) {
+      return res.status(400).send({ message: 'Task not found' })
+    }
+    res.status(200).send({ message: "Successfully delete task" })
+  } catch (error) {
+    res.status(500).send({ message: `Server error: ${error.message}` })
+  }
+}
+
 router.post('/:userId/createGroup', createGroup) // will create a group
 router.get('/:userId/groups', getEducatorGroups) // will get all groups owned by an educator
 router.get('/owner/:ownerId/groupName/:groupName', getGroup) // will get a single group
@@ -264,5 +294,5 @@ router.get('/:groupId/tasks', getGroupTasks) // get all the tasks assigned to a 
 router.post('/:groupId/task', createTaskForGroup) // create a task and assign it to a group
 router.get('/:groupId/taskDetails', getGroupProgress) // get a group's progress on a task
 router.get('/:groupId', getGroupById)
-
+router.delete('/:groupId/task/:taskId', deleteGroupTask)
 export default router

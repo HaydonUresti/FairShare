@@ -1,0 +1,16 @@
+.task-card {
+  border: 1px solid black;
+  width: 25vh;
+  height: 30vh;
+  flex: 0 0 auto;
+  overflow: hidden;
+  background-color: white;
+}
+
+.task-title-div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: black;
+  background-color: var(--primary-color);
+}

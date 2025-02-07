@@ -1,6 +1,12 @@
+/* pages */
+@import url(./pages/GroupSelection/GroupSelection.css);
+@import url(./pages/GroupWorkspace/GroupWorkspace.css);
+
+/* components */
+@import url(./components/TaskDisplayComponent/TaskDisplayComponent.css);
 @import url(./components/GroupCard/GroupCard.css);
 @import url(./components/GroupDisplayComponent/GroupDisplayComponent.css);
-@import url(./pages/GroupSelection/GroupSelection.css);
+@import url(./components/TaskCard/TaskCard.css);
 
 :root {
   --text-color: #424242;
@@ -33,12 +39,21 @@ header {
   background-color: var(--primary-color);
   justify-content: space-between;
   align-items: center;
-  padding: 10px
+  padding: 10px;
+  height: auto;
 }
 
 #logo-div {
   background-color: white;
   border-radius: 5px;
+  max-width: 100vw;
+  max-height: auto;
+}
+
+#logo {
+  max-width: 100%;
+  height: auto;
+  display: black;
 }
 
 nav {

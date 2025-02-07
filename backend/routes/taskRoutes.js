@@ -43,9 +43,10 @@ const updateTask = async (req, res) => {
 
     res.status(200).send(updatedTask.toObject())
   } catch (error) {
-    res.status(500).send({ message: `Server error: ${error}` })
+    res.status(500).send({ message: `Server error: ${error}`})
   }
 }
+
 
 router.get('/:taskId', getTaskById)
 router.patch('/:taskId', updateTask )

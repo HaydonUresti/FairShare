@@ -1,0 +1,38 @@
+.group-workspace {
+  background-color: var(--body-color);
+  height: 100%;
+
+}
+
+.workspace-div {
+  display: flex;
+  justify-content: center;
+}
+
+.group-task-display {
+  /* background-color: var(--primary-color); */
+  border: 1px solid black;
+  width: 80%;
+  height: 31vh;
+  border-radius: 10px;
+  overflow-y: hidden;
+  white-space: nowrap;
+  border-radius: 15px;
+  max-width: 100%;
+  height: auto;
+}
+
+#time-weight-div {
+  display: grid;
+  grid-template-columns: auto auto;
+}
+
+.estimation-div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.estimation-value-p {
+  margin-top: -1rem;
+}

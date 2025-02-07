@@ -909,5 +909,98 @@
         }
       }
     }
+  },
+  "/api/groups/{groupId}/task/{taskId}": {
+    "delete": {
+      "tags": [
+        "Groups"
+      ],
+      "summary": "Delete a task",
+      "description": "Delete a task and remove it from the specified group.",
+      "parameters": [
+        {
+          "name": "groupId",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "taskId",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "responses": {
+        "200": {
+          "description": "Task successfully deleted",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "message": {
+                    "type": "string",
+                    "example": "Task successfully deleted"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "400": {
+          "description": "Missing taskId or groupId",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "message": {
+                    "type": "string",
+                    "example": "taskId is required"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "404": {
+          "description": "Task not found",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "message": {
+                    "type": "string",
+                    "example": "No task found for Id: {taskId}"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "500": {
+          "description": "Server error",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "message": {
+                    "type": "string",
+                    "example": "Server error"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
   }
 }

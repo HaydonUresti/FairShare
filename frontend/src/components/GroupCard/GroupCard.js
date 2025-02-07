@@ -11,8 +11,8 @@ const GroupCard = ({ group, isInitialCard, onClick }) => {
 
   useEffect(() => {
     if (!group?.members || group.members.length === 0) {
-      setLoading(false); // Ensure the loading state is updated
-      return;
+      setLoading(false) // Ensure the loading state is updated
+      return
     }
 
     const fetchUserNames = async () => {
@@ -22,7 +22,7 @@ const GroupCard = ({ group, isInitialCard, onClick }) => {
             const member = await getUserById(memberId)
             return member.name
           })
-        );
+        )
         setNames(memberNames)
       } catch (error) {
         console.error(`Error fetching user names: ${error}`)
