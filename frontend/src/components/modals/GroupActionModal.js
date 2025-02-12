@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Modal, Button } from 'react-bootstrap'
-import { createGroup, addGroupMember } from '../services/groupServices'
+import { createGroup, addGroupMember } from '../../services/groupServices'
 
 const GroupActionModal = ({ show, onHide, onSave, action }) => {
   const [groupName, setGroupName] = useState()

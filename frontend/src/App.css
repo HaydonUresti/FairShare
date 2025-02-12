@@ -12,6 +12,7 @@
 
 /* Modals */
 @import url(./components/IndividualTaskModal/IndividualTaskModal.css);
+@import url(./components/GroupModal/GroupModal.css);
 
 :root {
   --text-color: #424242;

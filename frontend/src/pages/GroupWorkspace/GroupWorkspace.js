@@ -5,7 +5,7 @@ import { getTaskById } from '../../services/taskService.js'
 
 import TaskDisplay from '../../components/TaskDisplayComponent/TaskDisplayComponent.js'
 import IndividualTaskCard from '../../components/IndividulTaskCard/IndividualTaskCard.js'
-import IndividualTaskModal from '../../components/IndividualTaskModal/IndividualTaskModal.js'
+import IndividualTaskModal from '../../components/modals/IndividualTaskModal/IndividualTaskModal.js'
 
 export default function GroupWorkspace() {
   const currentUser = localStorage.getItem('userId')
@@ -61,7 +61,7 @@ export default function GroupWorkspace() {
     setIndividualTasks(studentTasks)
   }
 
- 
+
   const handleCardClick = (task) => {
     setSelectedTask(task)
     setShowTaskModal(true)
@@ -69,7 +69,7 @@ export default function GroupWorkspace() {
     const assignedStudents = {}
     if (task?.task?.progress) {
       task.task.progress.forEach(({ student }) => {
-        assignedStudents[student] = student 
+        assignedStudents[student] = student
       })
     }
 
@@ -97,8 +97,8 @@ export default function GroupWorkspace() {
                 <IndividualTaskCard
                   key={task?._id || Math.random()}
                   taskData={task}
-                  isEven={index % 2 === 0} 
-                  onClick={() => handleCardClick(task)} 
+                  isEven={index % 2 === 0}
+                  onClick={() => handleCardClick(task)}
                 />
               ))
             ) : (

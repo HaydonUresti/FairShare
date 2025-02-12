@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 import GroupCard from '../GroupCard/GroupCard.js'
-import GroupModal from '../GroupModal.js'
-import GroupActionModal from '../GroupActionModal.js'
+import GroupModal from '../modals/GroupModal/GroupModal.js'
+import GroupActionModal from '../modals/GroupActionModal.js'
 
 
 const GroupDisplayComponent = ({ groups, userRole }) => {

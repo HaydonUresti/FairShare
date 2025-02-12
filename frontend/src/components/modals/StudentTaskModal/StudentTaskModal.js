@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Modal, Button } from 'react-bootstrap'
-import { updateTask } from '../../services/taskService.js'
+import { updateTask } from '../../../services/taskService.js'
 
 const StudentTaskModal = ({ show, onHide, taskData, studentsAssigned, onSave, userRole }) => {
   const currentStudent = localStorage.getItem('userId')

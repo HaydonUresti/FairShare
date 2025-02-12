@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import TaskCard from '../TaskCard/TaskCard.js'
-import StudentTaskModal from '../StudentTaskModal/StudentTaskModal.js'
-import IndividualTaskModal from '../IndividualTaskModal/IndividualTaskModal.js'
+import StudentTaskModal from '../modals/StudentTaskModal/StudentTaskModal.js'
+import IndividualTaskModal from '../modals/IndividualTaskModal/IndividualTaskModal.js'
 import { getTaskById } from '../../services/taskService.js'
 import { getUserById } from '../../services/userService.js'
 
@@ -74,7 +74,7 @@ const TaskDisplay = ({ taskIds }) => {
     }
 
     setSelectedStudents(assignedStudents)
-    setIsAssignedToUser(isUserAssigned) 
+    setIsAssignedToUser(isUserAssigned)
     setShowTaskModal(true)
   }
 

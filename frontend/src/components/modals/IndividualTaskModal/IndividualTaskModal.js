@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Modal, Button } from 'react-bootstrap'
-import { updateTask } from '../../services/taskService.js'
+import { updateTask } from '../../../services/taskService.js'
 
 const IndividualTaskModal = ({ show, onHide, taskData }) => {
   const taskId = taskData?.task?._id

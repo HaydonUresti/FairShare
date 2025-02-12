@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { Modal, Button, Form } from 'react-bootstrap'
-import { removeGroupMember, deleteGroup } from '../services/groupServices.js'
-import { createNewTask } from '../services/taskService.js'
-import { getUserById } from '../services/userService.js'
+import { removeGroupMember, deleteGroup } from '../../../services/groupServices.js'
+import { createNewTask } from '../../../services/taskService.js'
+import { getUserById } from '../../../services/userService.js'
 import { useNavigate } from 'react-router-dom'
 
 const GroupModal = ({ show, onHide, title, content, onSave, userRole }) => {
@@ -86,7 +86,7 @@ const GroupModal = ({ show, onHide, title, content, onSave, userRole }) => {
 
   return (
     <Modal show={show} onHide={onHide}>
-      <Modal.Header closeButton>
+      <Modal.Header className='group-modal-header' closeButton>
         <Modal.Title>{assignTaskMode ? 'Assign New Task' : title}</Modal.Title>
       </Modal.Header>
 
