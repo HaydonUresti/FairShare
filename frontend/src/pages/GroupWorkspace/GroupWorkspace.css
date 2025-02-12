@@ -6,11 +6,12 @@
 
 .workspace-div {
   display: flex;
+  flex-direction: column;
   justify-content: center;
+  align-items: center;
 }
 
 .group-task-display {
-  /* background-color: var(--primary-color); */
   border: 1px solid black;
   width: 80%;
   height: 31vh;
@@ -35,4 +36,28 @@
 
 .estimation-value-p {
   margin-top: -1rem;
+}
+
+
+#task-hr {
+  width: 80%;
+}
+
+.individual-tasks-div {
+  flex-direction: column;
+  align-items: center;
+  width: 80%;
+  border: 1px solid black;
+  border-radius: 10px;
+  overflow-y: hidden;
+  border-radius: 15px;
+}
+
+.even-task {
+  background-color: white;
+
+}
+
+.odd-task {
+  background-color: var(--body-color);
 }

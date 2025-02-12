@@ -36,20 +36,19 @@ const updateTask = async (req, res) => {
       { $set: updateData },
       { new: true, runValidators: true }
     )
-
     if (!updatedTask) {
       return res.status(404).send({ message: `No task found with ID: ${taskId}` })
     }
 
-    res.status(200).send(updatedTask.toObject())
+    res.status(200).send(updatedTask)
   } catch (error) {
-    res.status(500).send({ message: `Server error: ${error}`})
+    res.status(500).send({ message: `Server error: ${error}` })
   }
 }
 
 
 router.get('/:taskId', getTaskById)
-router.patch('/:taskId', updateTask )
+router.patch('/:taskId', updateTask)
 // PATCH /tasks/:taskId/progress/:studentId → Update a student’s progress on a task (e.g., add a grade)
 // GET /tasks?studentId=123 → Get all tasks a student has worked on (cross-group)
 

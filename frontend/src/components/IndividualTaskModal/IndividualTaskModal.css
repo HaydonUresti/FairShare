@@ -1,0 +1,22 @@
+.individual-task-modal-header {
+background-color: var(--primary-color);
+}
+
+.individual-task-times {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+/* .individual-modal-time-div {
+  display: flex;
+  flex-direction: column;
+} */
+
+.individual-task-form-label {
+  display: flex;
+  flex-direction: column;
+}
+
+ .completed-checkbox {
+    margin-left: 0.5rem;
+ }

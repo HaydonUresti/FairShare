@@ -37,7 +37,7 @@ const GroupDisplayComponent = ({ groups, userRole }) => {
         title={selectedGroup?.groupName}
         content={selectedGroup}
         onSave={() => {
-          console.log('Saving changes for:', selectedGroup)
+          // console.log('Saving changes for:', selectedGroup)
           setShowGroupModal(false)
         }}
         userRole={userRole}

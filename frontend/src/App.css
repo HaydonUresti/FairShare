@@ -7,6 +7,11 @@
 @import url(./components/GroupCard/GroupCard.css);
 @import url(./components/GroupDisplayComponent/GroupDisplayComponent.css);
 @import url(./components/TaskCard/TaskCard.css);
+@import url(./components/IndividulTaskCard/IndividualTaskCard.css);
+@import url(./components/StudentTaskModal/StudentTaskModal.css);
+
+/* Modals */
+@import url(./components/IndividualTaskModal/IndividualTaskModal.css);
 
 :root {
   --text-color: #424242;

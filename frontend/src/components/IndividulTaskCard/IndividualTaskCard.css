@@ -1,0 +1,40 @@
+.individual-task-card {
+  margin-left: .5rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  align-items: center;
+  gap: 1rem;
+  align-items: baseline;
+}
+
+.individual-estimation-div {
+  display: flex;
+  flex-direction: row;
+  gap: 0.25rem;
+}
+
+.individual-estimation-value-p {
+  margin-bottom: 0;
+}
+
+.task-hr {
+  margin-top: 0;
+  width: 90%;
+}
+
+.individual-completed-task-div {
+  background-color: var(--secondary1-color);
+  margin-left: -0.5rem;
+}
+
+.fix-header-margin {
+  margin-bottom: 0;
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+}
+
+.individual-task-info-p {
+  margin-top: 0;
+  margin-bottom: 0;
+}

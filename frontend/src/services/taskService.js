@@ -44,7 +44,7 @@ export const updateTask = async (taskId, updateData) => {
     const response = await axios.patch(
       `${API_URL}/api/tasks/${taskId}`,
       {
-        updateData
+        ...updateData
       }
     )
     if (!response.status === 200) {

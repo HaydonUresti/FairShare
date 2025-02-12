@@ -8,13 +8,9 @@ const TaskSchema = new mongoose.Schema({
   description: { type: String },
   estimatedTime: {
     type: Number,
-    required: true
-  }, // in minutes
-  timeLogged: {
-    type: Number,
-    default: 0
-  }
-  , // total time logged in minutes
+    required: true,
+    min: 0.25,
+  }, // in hours
   progress: [
     {
       student: { type: String },
@@ -27,7 +23,7 @@ const TaskSchema = new mongoose.Schema({
   taskWeight: {
     type: Number,
     required: true,
-    default: 0
+    default: 1
   }
 })
 

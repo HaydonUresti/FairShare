@@ -11,3 +11,9 @@
   overflow-y: hidden;
   white-space: nowrap;
  }
+
+ .task-display-div.no-tasks {
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}

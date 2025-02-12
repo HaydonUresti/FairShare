@@ -3,8 +3,10 @@
   width: 25vh;
   height: 30vh;
   flex: 0 0 auto;
-  overflow: hidden;
   background-color: white;
+  overflow: hidden; 
+  word-wrap: break-word; 
+  white-space: normal; 
 }
 
 .task-title-div {
@@ -13,4 +15,10 @@
   align-items: center;
   color: black;
   background-color: var(--primary-color);
+}
+
+.task-card div p {
+  overflow-wrap: break-word; 
+  word-wrap: break-word; 
+  white-space: normal;
 }

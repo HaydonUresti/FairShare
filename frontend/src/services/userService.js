@@ -56,6 +56,7 @@ export const logoutUser = async () => {
 }
 
 export const getUserById = async (userId) => {
+  if (!userId) return 
   try {
     const result = await axios.get(`${API_URL}/api/users/${userId}`)
     return result.data

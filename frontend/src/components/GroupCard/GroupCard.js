@@ -1,17 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import { getUserById } from '../../services/userService.js'
 
-
 const GroupCard = ({ group, isInitialCard, onClick }) => {
-  const [memberNames, setNames] = useState([])
+  const [memberNames, setNames] = useState([])  // Store member names for each group
   const [loading, setLoading] = useState(true)
-  // loading is set to true so that the component can handle not having 
-  // the data at the time of loading as it is async
-
 
   useEffect(() => {
     if (!group?.members || group.members.length === 0) {
-      setLoading(false) // Ensure the loading state is updated
+      setLoading(false)
       return
     }
 
@@ -23,34 +19,34 @@ const GroupCard = ({ group, isInitialCard, onClick }) => {
             return member.name
           })
         )
-        setNames(memberNames)
+        setNames(memberNames) // Set member names for the current group
       } catch (error) {
         console.error(`Error fetching user names: ${error}`)
       } finally {
         setLoading(false)
       }
-    };
+    }
 
     fetchUserNames()
-  }, [group?.members])
+  }, [group?.members])  // Dependency on group.members to ensure it fetches for the right group
 
   if (loading) return <p>Loading members...</p>
 
   return (
     <div className={`group-card ${isInitialCard ? 'create-group' : ''}`} onClick={onClick}>
-      {/* Check if this is the default group card */}
-      {isInitialCard ?
+      {isInitialCard ? (
         // Check if this is for an Educator or a Student
-        (
-          (group === 'Educator') ? (<h3>+ Create New Group</h3>) :
-            (<h3>+ Join New Group</h3>)
+        group === 'Educator' ? (
+          <h3>+ Create New Group</h3>
         ) : (
-          <>
-            {/* fix this with correct attributes */}
-            <h3>{group.groupName}</h3>
-            <p>Members: {memberNames}</p>
-          </>
-        )}
+          <h3>+ Join New Group</h3>
+        )
+      ) : (
+        <>
+          <h3>{group.groupName}</h3>
+          <p>Members: {memberNames.length > 0 ? memberNames.join(', ') : 'No members'}</p>
+        </>
+      )}
     </div>
   )
 }
