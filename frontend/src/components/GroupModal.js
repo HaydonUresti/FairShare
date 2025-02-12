@@ -1,50 +1,50 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Modal, Button, Form } from 'react-bootstrap'
-import { removeGroupMember, deleteGroup, } from '../services/groupServices.js'
+import { removeGroupMember, deleteGroup } from '../services/groupServices.js'
 import { createNewTask } from '../services/taskService.js'
+import { getUserById } from '../services/userService.js'
 import { useNavigate } from 'react-router-dom'
 
 const GroupModal = ({ show, onHide, title, content, onSave, userRole }) => {
   const navigate = useNavigate()
+  const [assignTaskMode, setAssignTaskMode] = useState(false)
+  const [taskData, setTaskData] = useState({ title: '', description: '', estimatedTime: '', taskWeight: '' })
+  const [memberNames, setMemberNames] = useState([])
+  const [loadingMembers, setLoadingMembers] = useState(true)
 
-  const [assignTaskMode, setAssignTaskMode] = useState(false) // Track if a new task is being
-  const [taskData, setTaskData] = useState({
-    title: '',
-    description: '',
-    estimatedTime: '',
-    taskWeight: ''
-  });
+  useEffect(() => {
+    if (!content?.members || content.members.length === 0) {
+      setLoadingMembers(false)
+      return
+    }
+
+    const fetchMemberNames = async () => {
+      try {
+        const names = await Promise.all(
+          content.members.map(async (memberId) => {
+            const member = await getUserById(memberId)
+            return member.name
+          })
+        )
+        setMemberNames(names)
+      } catch (error) {
+        console.error(`Error fetching user names: ${error}`)
+      } finally {
+        setLoadingMembers(false)
+      }
+    }
+
+    fetchMemberNames()
+  }, [content?.members])
 
   const navigateToWorkspace = () => {
-    const groupData = { groupId: content?._id }
-
-    navigate('/group-workspace', { state: groupData })
-  }
-
-  const validateHours = (value) => {
-    let numValue = Number(value)
-    if (numValue < 0.25) numValue = 0.25
-    numValue = Math.round(numValue * 4) / 4
-    return `${numValue}`
-  }
-
-  const validateWeight = (value) => {
-    let numValue = Number(value)
-    if (numValue < 1) numValue = 1
-    if (numValue > 10) numValue = 10
-    numValue = Math.floor(Number(numValue))
-    return `${numValue}`
+    navigate('/group-workspace', { state: { groupId: content?._id } })
   }
 
   const handleInputChange = (e) => {
     let { name, value } = e.target
-    if (name === 'taskWeight') {
-      value = validateWeight(value)
-    }
-    if (name === 'estimatedTime') {
-      value = validateHours(value)
-    }
-    console.log(`Updated ${name}:`, value)
+    if (name === 'taskWeight') value = Math.max(1, Math.min(10, Math.floor(Number(value))))
+    if (name === 'estimatedTime') value = Math.max(0.25, Math.round(Number(value) * 4) / 4)
     setTaskData(prev => ({ ...prev, [name]: value }))
   }
 
@@ -53,7 +53,7 @@ const GroupModal = ({ show, onHide, title, content, onSave, userRole }) => {
     try {
       await removeGroupMember(content?._id, localStorage.getItem('userId'))
       console.log('Successfully removed the user from the group')
-      onSave();
+      onSave()
       window.location.reload()
     } catch (error) {
       console.log(`Error leaving group: ${error}`)
@@ -75,12 +75,10 @@ const GroupModal = ({ show, onHide, title, content, onSave, userRole }) => {
   const handleAssignTask = async (e) => {
     e.preventDefault()
     try {
-      taskData.estimatedTime = validateHours(taskData.estimatedTime)
-      taskData.taskWeight = validateWeight(taskData.taskWeight)
       await createNewTask(content?._id, taskData)
-      onSave();
-      setAssignTaskMode(false); // Go back to default view after saving
-      setTaskData({ title: '', description: '', estimatedTime: '', taskWeight: '' }) // Clear form
+      onSave()
+      setAssignTaskMode(false)
+      setTaskData({ title: '', description: '', estimatedTime: '', taskWeight: '' })
     } catch (error) {
       console.log(`Error assigning task: ${error}`)
     }
@@ -147,7 +145,10 @@ const GroupModal = ({ show, onHide, title, content, onSave, userRole }) => {
         ) : (
           <>
             <p>{`Description: ${content?.description}`}</p>
-            <p>{`Members: ${content?.members}`}</p>
+            <p>
+              Members:{' '}
+              {loadingMembers ? 'Loading...' : memberNames.length > 0 ? memberNames.join(', ') : 'No members'}
+            </p>
           </>
         )}
       </Modal.Body>
@@ -180,7 +181,7 @@ const GroupModal = ({ show, onHide, title, content, onSave, userRole }) => {
         <Button variant='secondary' onClick={onHide}>
           Close
         </Button>
-        {(userRole === 'Student') && (
+        {userRole === 'Student' && (
           <Button variant='primary' onClick={navigateToWorkspace}>
             Workspace
           </Button>

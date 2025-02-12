@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { getUserById } from '../../services/userService.js'
 
 const GroupCard = ({ group, isInitialCard, onClick }) => {
-  const [memberNames, setNames] = useState([])  // Store member names for each group
+  const [memberNames, setNames] = useState([]) 
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
@@ -19,7 +19,7 @@ const GroupCard = ({ group, isInitialCard, onClick }) => {
             return member.name
           })
         )
-        setNames(memberNames) // Set member names for the current group
+        setNames(memberNames) 
       } catch (error) {
         console.error(`Error fetching user names: ${error}`)
       } finally {
@@ -28,7 +28,7 @@ const GroupCard = ({ group, isInitialCard, onClick }) => {
     }
 
     fetchUserNames()
-  }, [group?.members])  // Dependency on group.members to ensure it fetches for the right group
+  }, [group?.members]) 
 
   if (loading) return <p>Loading members...</p>
 
