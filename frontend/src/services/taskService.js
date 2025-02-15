@@ -49,11 +49,29 @@ export const updateTask = async (taskId, updateData) => {
     )
     if (!response.status === 200) {
       const errorData = await response.json();
-      throw new Error(errorData.message || 'Failed to update the task');
+      throw new Error(errorData.message || 'Failed to update the task')
     }
     return response.data
   } catch (error) {
     console.error(`Group creation failed: ${error}`)
+    throw error
+  }
+}
+
+export const deleteTask = async (groupId, taskId) => {
+  try {
+    if (!groupId || !taskId) {
+      throw new Error('Must include group task IDs.')
+    }
+
+    const response = await axios.delete(`${API_URL}/api/groups/${groupId}/task/${taskId}`)
+    if (!response.status === 200) {
+      const errorData = await response.json()
+      throw new Error(errorData.message || 'Failed to update the task')
+    }
+    return response.data
+  } catch (error) {
+    console.error(`Failed to delete task: ${error}`)
     throw error
   }
 }

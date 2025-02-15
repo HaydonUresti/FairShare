@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
-import { useNavigate } from "react-router-dom"
-import { loginUser, registerUser } from "../services/userService"
+import { useNavigate } from 'react-router-dom'
+import { loginUser, registerUser } from '../services/userService'
 
 const API_URL = process.env.REACT_APP_API_URL
 
@@ -24,8 +24,6 @@ export default function SignIn() {
     e.preventDefault()
     try {
       await registerUser(name, email, password, userRole)
-      // clearForm()
-      // navigate('')
     } catch (error) {
       console.log('Register failed:', error)
     }
@@ -43,8 +41,6 @@ export default function SignIn() {
       } else {
         console.log('Unknown user role:', result?.data.userRole)
       }
-      // clearForm()
-      // navigate("/dashboard")
     } catch (error) {
       console.log('Login failed:', error)
     }
@@ -59,52 +55,52 @@ export default function SignIn() {
           <h2>Register</h2>
           <form onSubmit={handleRegister}>
             <div>
-              <label htmlFor="email">
+              <label htmlFor='email'>
                 <strong>Name</strong>
               </label>
               <input
-                type="text"
-                placeholder="Enter Name"
-                autoComplete="on"
-                name="name"
+                type='text'
+                placeholder='Enter Name'
+                autoComplete='on'
+                name='name'
                 onChange={(name) => setName(name.target.value)}
               />
             </div>
             <div>
-              <label htmlFor="email">
+              <label htmlFor='email'>
                 <strong>Email</strong>
               </label>
               <input
-                type="email"
-                placeholder="Enter Email"
-                autoComplete="on"
-                name="email"
+                type='email'
+                placeholder='Enter Email'
+                autoComplete='on'
+                name='email'
                 onChange={(email) => setEmail(email.target.value)}
               />
             </div>
             <div>
-              <label htmlFor="email">
+              <label htmlFor='email'>
                 <strong>Password</strong>
                 <input
-                  type="password"
-                  placeholder="Enter Password"
-                  name="password"
+                  type='password'
+                  placeholder='Enter Password'
+                  name='password'
                   onChange={(password) => setPassword(password.target.value)}
                 />
               </label>
             </div>
             <div>
-              <label htmlfor="userRole">Select an option:</label>
+              <label htmlfor='userRole'>Select an option:</label>
               <select
-                id="userRoleSelection"
-                name="userRole"
+                id='userRoleSelection'
+                name='userRole'
                 onChange={(role) => setUserRole(role.target.value)}
               >
-                <option value="Educator">Educator</option>
-                <option value="Student">Student</option>
+                <option value='Educator'>Educator</option>
+                <option value='Student'>Student</option>
               </select>
             </div>
-            <button type="submit">Register</button>
+            <button type='submit'>Register</button>
           </form>
         </div>
         <div>
@@ -112,29 +108,29 @@ export default function SignIn() {
           <h2>Login</h2>
           <form onSubmit={handleLogin}>
             <div>
-              <label htmlFor="email">
+              <label htmlFor='email'>
                 <strong>Email</strong>
               </label>
               <input
-                type="email"
-                placeholder="Enter Email"
-                autoComplete="on"
-                name="email"
+                type='email'
+                placeholder='Enter Email'
+                autoComplete='on'
+                name='email'
                 onChange={(email) => setEmail(email.target.value)}
               />
             </div>
             <div>
-              <label htmlFor="email">
+              <label htmlFor='email'>
                 <strong>Password</strong>
                 <input
-                  type="password"
-                  placeholder="Enter Password"
-                  name="password"
+                  type='password'
+                  placeholder='Enter Password'
+                  name='password'
                   onChange={(password) => setPassword(password.target.value)}
                 />
               </label>
             </div>
-            <button type="submit">Login</button>
+            <button type='submit'>Login</button>
           </form>
         </div>
       </div>

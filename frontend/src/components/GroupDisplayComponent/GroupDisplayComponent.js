@@ -4,7 +4,7 @@ import GroupModal from '../modals/GroupModal/GroupModal.js'
 import GroupActionModal from '../modals/GroupActionModal.js'
 
 
-const GroupDisplayComponent = ({ groups, userRole }) => {
+const GroupDisplayComponent = ({ groups, userRole, onGroupSelect }) => {
 
   const [showGroupModal, setShowGroupModal] = useState(false)
   const [selectedGroup, setSelectedGroup] = useState(null)
@@ -27,7 +27,11 @@ const GroupDisplayComponent = ({ groups, userRole }) => {
 
       {/* Render each group card */}
       {groups.map((group) => (
-        <GroupCard key={group.id} group={group} onClick={() => handleCardClick(group)} />
+        userRole === 'Educator' ? (
+          <GroupCard key={group.id} group={group} onClick={() => onGroupSelect(group)} />
+        ) : (
+          <GroupCard key={group.id} group={group} onClick={() => handleCardClick(group)} />
+        )
       ))}
 
       {/* The Group Details Modal */}
@@ -37,7 +41,6 @@ const GroupDisplayComponent = ({ groups, userRole }) => {
         title={selectedGroup?.groupName}
         content={selectedGroup}
         onSave={() => {
-          // console.log('Saving changes for:', selectedGroup)
           setShowGroupModal(false)
         }}
         userRole={userRole}

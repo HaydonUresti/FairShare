@@ -11,14 +11,6 @@ const TaskCard = ({ taskData, studentAssignments, onClick }) => {
 
   return (
     <div className='task-card' onClick={onClick}>
-      {/* {
-        taskData?.task?.progress[0]?.completed &&
-        <>
-          <div className='individual-completed-task-div'>
-            <h3 className='fix-header-margin'>Completed</h3>
-          </div>
-        </>
-      } */}
       <div className='task-title-div'>
         <h3>{taskData.task.title}</h3>
       </div>
@@ -50,14 +42,6 @@ const TaskCard = ({ taskData, studentAssignments, onClick }) => {
           <p><strong>Description:</strong> {taskData.task.description}</p>
         </div>
       </div>
-      {/* {
-          taskData?.task?.progress[0]?.completed &&  
-          <>
-            <div className='individual-completed-task-div'>
-              <h3 className='fix-header-margin'>Completed</h3>
-            </div>
-          </>
-        } */}
     </div>
   )
 }

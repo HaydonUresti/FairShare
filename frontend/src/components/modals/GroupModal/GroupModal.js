@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Modal, Button, Form } from 'react-bootstrap'
-import { removeGroupMember, deleteGroup } from '../../../services/groupServices.js'
+import { removeGroupMember} from '../../../services/groupServices.js'
 import { createNewTask } from '../../../services/taskService.js'
 import { getUserById } from '../../../services/userService.js'
 import { useNavigate } from 'react-router-dom'
@@ -60,17 +60,7 @@ const GroupModal = ({ show, onHide, title, content, onSave, userRole }) => {
     }
   }
 
-  const handDeleteGroup = async (e) => {
-    e.preventDefault()
-    try {
-      await deleteGroup(content?._id)
-      console.log('Successfully deleted the group')
-      onSave()
-      window.location.reload()
-    } catch (error) {
-      console.log(`Error deleting group: ${error}`)
-    }
-  }
+  
 
   const handleAssignTask = async (e) => {
     e.preventDefault()
@@ -154,29 +144,12 @@ const GroupModal = ({ show, onHide, title, content, onSave, userRole }) => {
       </Modal.Body>
 
       <Modal.Footer>
-        {assignTaskMode ? (
-          <>
-            <Button variant='secondary' onClick={() => setAssignTaskMode(false)}>
-              Back
+        {
+          (
+            <Button variant='warning' onClick={handLeaveGroup}>
+              Leave Group
             </Button>
-            <Button variant='primary' onClick={handleAssignTask}>
-              Assign Task
-            </Button>
-          </>
-        ) : userRole === 'Educator' ? (
-          <>
-            <Button variant='warning' onClick={handDeleteGroup}>
-              Delete Group
-            </Button>
-            <Button variant='success' onClick={() => setAssignTaskMode(true)}>
-              Assign New Task
-            </Button>
-          </>
-        ) : (
-          <Button variant='warning' onClick={handLeaveGroup}>
-            Leave Group
-          </Button>
-        )}
+          )}
 
         <Button variant='secondary' onClick={onHide}>
           Close

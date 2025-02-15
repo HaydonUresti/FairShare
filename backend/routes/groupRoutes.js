@@ -20,7 +20,7 @@ const createGroup = async (req, res) => {
         .send(
           { message: `All fields are required. Missing fields: ${missingFields.join(', ')}` })
     }
-    const newGroup = new GroupModel({ groupName, description, ownerId: userId, joinCode })
+    const newGroup = new GroupModel({ groupName, description, ownerId: userId, joinCode, members: [] })
     await newGroup.save()
     res.status(201).send({ message: 'Group created successfully' })
   } catch (error) {
@@ -272,7 +272,7 @@ const deleteGroupTask = async (req, res) => {
     if (!deleteFromGroup) {
       return res.status(400).send({ message: 'Task not found' })
     }
-    const deleteTaskResponse = deleteTaskDocument(taskId)
+    const deleteTaskResponse = await deleteTaskDocument(taskId)
     if (!deleteTaskResponse) {
       return res.status(400).send({ message: 'Task not found' })
     }

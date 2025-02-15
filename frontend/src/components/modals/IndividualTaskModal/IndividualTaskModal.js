@@ -6,7 +6,6 @@ const IndividualTaskModal = ({ show, onHide, taskData }) => {
   const taskId = taskData?.task?._id
   const currentStudent = localStorage.getItem('userId')
 
-  // Store initial values for comparison
   const initialProgress = taskData?.task?.progress[0] || {}
 
   const [timeWorked, setTimeWorked] = useState(initialProgress.timeWorked ?? 0)

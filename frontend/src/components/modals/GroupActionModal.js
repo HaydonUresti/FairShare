@@ -19,14 +19,15 @@ const GroupActionModal = ({ show, onHide, onSave, action }) => {
       } catch (error) {
         console.log(`Error creating new group: ${error}`)
       }
-    }
-    try {
-      const result = await addGroupMember(joinCode)
-      console.log(`Successfully created group: ${result}`)
-      onSave()
-      window.location.reload()
-    } catch (error) {
-      console.log(`Error creating new group: ${error}`)
+    } else {
+      try {
+        const result = await addGroupMember(joinCode)
+        console.log(`Successfully created group: ${result}`)
+        onSave()
+        window.location.reload()
+      } catch (error) {
+        console.log(`Error creating new group: ${error}`)
+      }
     }
   }
 

@@ -8,11 +8,13 @@
 @import url(./components/GroupDisplayComponent/GroupDisplayComponent.css);
 @import url(./components/TaskCard/TaskCard.css);
 @import url(./components/IndividulTaskCard/IndividualTaskCard.css);
-@import url(./components/StudentTaskModal/StudentTaskModal.css);
+@import url(./components/TaskDrawer/TaskDrawer.css);
 
 /* Modals */
-@import url(./components/IndividualTaskModal/IndividualTaskModal.css);
-@import url(./components/GroupModal/GroupModal.css);
+@import url(./components/modals/IndividualTaskModal/IndividualTaskModal.css);
+@import url(./components/modals/GroupModal/GroupModal.css);
+@import url(./components/modals/StudentTaskModal/StudentTaskModal.css);
+
 
 :root {
   --text-color: #424242;
