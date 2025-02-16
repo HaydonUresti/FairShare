@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Modal, Button, Form } from 'react-bootstrap'
 import { updateTask } from '../../../services/taskService.js'
+import { validateTaskWeight, validateTimeInput } from '../../../services/validationService.js'
 
 const UpdateTaskModal = ({ show, onHide, taskData, studentsAssigned, onSave }) => {
   const initialProgress = taskData?.progress[0] || {}
@@ -131,7 +132,7 @@ const UpdateTaskModal = ({ show, onHide, taskData, studentsAssigned, onSave }) =
               type='number'
               name='estimatedTime'
               value={estimatedTime}
-              onChange={(e) => setEstimatedTime(e.target.value)}
+              onChange={(e) => setEstimatedTime(validateTimeInput(e.target.value))}
               placeholder='e.g., 6 or 14.25'
               step='0.25'
               min='0.25'
@@ -144,7 +145,7 @@ const UpdateTaskModal = ({ show, onHide, taskData, studentsAssigned, onSave }) =
               type='number'
               name='timeWorked'
               value={timeWorked}
-              onChange={(e) => setTimeWorked(Number(e.target.value))}
+              onChange={(e) => setTimeWorked(validateTimeInput(e.target.value))}
               placeholder='e.g., 11 or 5.75'
               step='0.25'
               min='0.25'
@@ -157,7 +158,7 @@ const UpdateTaskModal = ({ show, onHide, taskData, studentsAssigned, onSave }) =
               type='number'
               name='taskWeight'
               value={taskWeight}
-              onChange={(e) => setTaskWeight(Number(e.target.value))}
+              onChange={(e) => setTaskWeight(validateTaskWeight(e.target.value))}
               placeholder='e.g., 5'
               min='1'
               max='10'

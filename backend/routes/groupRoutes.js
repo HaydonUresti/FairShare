@@ -192,6 +192,9 @@ const getGroupTasks = async (req, res) => {
 const createTaskForGroup = async (req, res) => {
   try {
     const groupId = req.params.groupId
+    if (!groupId) {
+      return res.status(400).send({ message: 'Missing gorupId' })
+    }
     const { title, description, estimatedTime, taskWeight } = req.body
     const params = { title, description, estimatedTime, taskWeight }
 
@@ -272,10 +275,7 @@ const deleteGroupTask = async (req, res) => {
     if (!deleteFromGroup) {
       return res.status(400).send({ message: 'Task not found' })
     }
-    const deleteTaskResponse = await deleteTaskDocument(taskId)
-    if (!deleteTaskResponse) {
-      return res.status(400).send({ message: 'Task not found' })
-    }
+    await deleteTaskDocument(taskId)
     res.status(200).send({ message: "Successfully delete task" })
   } catch (error) {
     res.status(500).send({ message: `Server error: ${error.message}` })

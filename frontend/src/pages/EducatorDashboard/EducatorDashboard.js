@@ -5,6 +5,7 @@ import * as GroupService from '../../services/groupServices.js'
 import GroupDisplayComponent from '../../components/GroupDisplayComponent/GroupDisplayComponent.js'
 import TaskDrawer from '../../components/TaskDrawer/TaskDrawer.js'
 import UpdateTaskModal from '../../components/modals/UpdateTaskModal/UpdateTaskModal.js'
+import CreateTaskModal from '../../components/modals/CreateTaskModal/CreateTaskModal.js'
 
 import { getUserById } from '../../services/userService.js'
 import { getTaskById } from '../../services/taskService.js'
@@ -16,6 +17,7 @@ export default function EducatorDashboard() {
   const [tasks, setTasks] = useState([])
   const [loading, setLoading] = useState(true)
   const [showUpdateModal, setShowUpdateModal] = useState(false)
+  const [showCreateModal, setShowCreateModal] = useState(false)
   const [selectedUpdateTask, setSelectedUpdateTask] = useState()
   const [selectedTaskStudent, setSelectedTaskStudent] = useState()
 
@@ -89,10 +91,14 @@ export default function EducatorDashboard() {
     setShowUpdateModal(true)
   }
 
+  const handleOpenCreateModal = () => {
+    setShowCreateModal(true)
+  }
+
   return (
     <>
       <div className='educator-dashboard'>
-        <div className="educator-group-display">
+        <div className='educator-group-display'>
           <GroupDisplayComponent
             groups={groups}
             userRole={'Educator'}
@@ -129,7 +135,7 @@ export default function EducatorDashboard() {
               </div>
               <div className='educator-task-div'>
                 <h3>{selectedGroup?.groupName}'s Tasks</h3>
-                <div className='create-task-card' onClick={handleOpenUpdateModal}>
+                <div className='create-task-card' onClick={handleOpenCreateModal}>
                   <h5>+ Create a new task</h5>
                 </div>
                 {
@@ -142,12 +148,10 @@ export default function EducatorDashboard() {
                   )
                 }
               </div>
-
             </>
           ) : (
             <h1>Create a group to view group details</h1>
           )}
-
         </div>
       </div>
 
@@ -156,6 +160,12 @@ export default function EducatorDashboard() {
         onHide={() => setShowUpdateModal(false)}
         taskData={selectedUpdateTask}
         studentsAssigned={selectedTaskStudent}
+      />
+
+      <CreateTaskModal
+        show={showCreateModal}
+        onHide={() => setShowCreateModal(false)}
+        groupId={selectedGroup?._id}
       />
     </>
   )

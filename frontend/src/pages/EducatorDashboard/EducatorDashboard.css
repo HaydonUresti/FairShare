@@ -37,7 +37,7 @@
 
 
 .group-deletion-button {
-  background-color: red;
+  background-color: var(--secondary2-color);
   border-radius: 5px;
   /* cursor: pointer; */
   border: none;
