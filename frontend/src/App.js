@@ -15,7 +15,7 @@ import EducatorDashboard from './pages/EducatorDashboard/EducatorDashboard.js'
 import GroupSelection from './pages/GroupSelection/GroupSelection.js'
 import GroupWorkspace from './pages/GroupWorkspace/GroupWorkspace.js'
 
-import Navbar from './components/Navbar.js'
+import Navbar from './components/Navigation/Navbar.js'
 import LogoutButton from './components/logoutButton.js'
 
 function App() {
@@ -25,11 +25,10 @@ function App() {
       <div className="App">
         <header>
           <div id="logo-div">
-            <img id="logo" src={require("./images/fairShareLogo.webp")} alt="FairShare Logo" />
+            <img id="logo" src={require("./images/fairShareHorizontalLogo.webp")} alt="FairShare Logo" />
           </div>
           <Navbar />
-          <LogoutButton />
-          <button id='header-button'>Sign Up Now!</button>
+          {/* <LogoutButton /> */}
         </header>
         <main>
           <Routes>

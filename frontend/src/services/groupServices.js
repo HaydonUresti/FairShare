@@ -135,4 +135,50 @@ export const getGroupById = async (groupId) => {
   }
 }
 
+const findTasksAssinged = (tasks, memberId) => {
+  return tasks.filter((task) => task?.task?.progress?.[0]?.student === memberId)
+}
 
+const findTasksCompleted = (assignedTasks) => {
+  return assignedTasks.filter((task) => task?.task?.progress?.[0]?.completed)
+}
+
+const findTimeWorked = (assignedTasks) => {
+  return assignedTasks.reduce(
+    (total, task) => total + Number(task?.task?.progress?.[0]?.timeWorked || 0),
+    0
+  )
+}
+
+// gets total value of task weight for a user 
+const findTotalTaskWeight = (assignedTasks) => {
+  return assignedTasks.reduce((total, task) => total + task?.task?.taskWeight || 0),
+    0
+}
+
+export const getGroupMemberContributions = (tasks, groupMembers) => {
+  const groupMemberData = []
+
+  groupMembers.forEach(memberId => {
+    const memberTaskData = {}
+
+    const assignedTasks = findTasksAssinged(tasks, memberId)
+    if (assignedTasks.length === 0) {
+      memberTaskData.id = memberId
+      memberTaskData.assignedTasks = {}
+      memberTaskData.tasksCompleted = {}
+      memberTaskData.totalTimeWorked = 0
+      memberTaskData.taskPointsCompleted = 0
+    }
+    else {
+      memberTaskData.id = memberId
+      memberTaskData.assignedTasks = assignedTasks
+      memberTaskData.tasksCompleted = findTasksCompleted(assignedTasks)
+      memberTaskData.totalTimeWorked = findTimeWorked(assignedTasks)
+      memberTaskData.taskPointsCompleted = findTotalTaskWeight(assignedTasks)
+    }
+    groupMemberData.push(memberTaskData)
+  })
+
+  return groupMemberData
+}

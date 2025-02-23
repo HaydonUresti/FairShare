@@ -1,4 +1,14 @@
 .join-group-div {
-  /* Creates responsive columns */
   gap: 10px;
+  margin-top: 3rem;
+  margin-left: 1rem;
+  margin-right: 1rem;
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 2fr));
+  gap: 2rem;
+  justify-content: center;
+  align-content: center;
+  max-width: 100%;
+  overflow: hidden;
 }

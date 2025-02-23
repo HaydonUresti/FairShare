@@ -56,14 +56,32 @@
   margin-right: 3rem;
 }
 
-.display-options-div {}
+.group-member-card-div {
+  display: flex;
+  flex-direction: row;
+  max-width: 80%;
+  overflow-y: auto;
+  border: 1px solid black;
+  border-radius: 5px;
+  margin-top: 1rem;
+}
 
+.dashboard-members-div{
+  margin-left: 1rem;
+  margin-top: 2rem;
+  text-align: start;
+}
 
 .data-view {
   display: flex;
   flex-direction: column;
   margin-left: 1rem;
   text-align: start;
+}
+
+.create-task-hr {
+  margin-top: 0;
+  margin-bottom: 0;
 }
 
 .educator-task-div  {
@@ -75,4 +93,5 @@
   overflow-y: auto;
   border: 1px solid black;
   border-radius: 5px;
+  margin-left: 1rem;
 }

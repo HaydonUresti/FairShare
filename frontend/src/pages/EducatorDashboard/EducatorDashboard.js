@@ -6,6 +6,7 @@ import GroupDisplayComponent from '../../components/GroupDisplayComponent/GroupD
 import TaskDrawer from '../../components/TaskDrawer/TaskDrawer.js'
 import UpdateTaskModal from '../../components/modals/UpdateTaskModal/UpdateTaskModal.js'
 import CreateTaskModal from '../../components/modals/CreateTaskModal/CreateTaskModal.js'
+import GroupMemberCard from '../../components/GroupMemberCard/GroupMemberCard.js'
 
 import { getUserById } from '../../services/userService.js'
 import { getTaskById } from '../../services/taskService.js'
@@ -20,6 +21,7 @@ export default function EducatorDashboard() {
   const [showCreateModal, setShowCreateModal] = useState(false)
   const [selectedUpdateTask, setSelectedUpdateTask] = useState()
   const [selectedTaskStudent, setSelectedTaskStudent] = useState()
+  const [groupMemberData, setGroupMemberData] = useState()
 
   useEffect(() => {
     const fetchGroups = async () => {
@@ -65,9 +67,27 @@ export default function EducatorDashboard() {
         setLoading(false)
       }
     }
+
+
+
     fetchUserNames()
     fetchTasks()
+
   }, [selectedGroup])
+
+  useEffect(() => {
+    if (!tasks || tasks.length === 0 || !selectedGroup) return;
+    const fetchTaskData = async () => {
+      try {
+        const data = await GroupService.getGroupMemberContributions(tasks, selectedGroup?.members);
+        console.log("Generated group member data:", data)
+        setGroupMemberData(data)
+      } catch (error) {
+        console.error(`Error fetching member data: ${error}`)
+      }
+    }
+    fetchTaskData()
+  }, [tasks, selectedGroup])
 
   const handleGroupSelect = (group) => {
     setSelectedGroup(group)
@@ -123,10 +143,8 @@ export default function EducatorDashboard() {
               </div>
               <div className='data-view'>
                 <h1>{selectedGroup?.groupName}</h1>
-                <h3>Group Members</h3>
-                {
-                  <p>Members: {memberNames.length > 0 ? memberNames.join(', ') : 'No members'}</p>
-                }
+                <h3>Group Join Code</h3>
+                <p><strong>{selectedGroup?.joinCode}</strong></p>
 
                 <div className='ai-description'>
                   <h4>Progress Update</h4>
@@ -136,6 +154,7 @@ export default function EducatorDashboard() {
               <div className='educator-task-div'>
                 <h3>{selectedGroup?.groupName}'s Tasks</h3>
                 <div className='create-task-card' onClick={handleOpenCreateModal}>
+                  <hr className='create-task-hr'></hr>
                   <h5>+ Create a new task</h5>
                 </div>
                 {
@@ -148,6 +167,22 @@ export default function EducatorDashboard() {
                   )
                 }
               </div>
+              <div className='dashboard-members-div'>
+                <h3>Group Members</h3>
+
+                <div className='group-member-card-div'>
+                  {
+                    groupMemberData && Object.keys(groupMemberData).length > 0 ? (
+                      groupMemberData.map((member, index) => (
+                        <GroupMemberCard key={index} studentData={member} />
+                      ))
+                    ) : (
+                      <p>No students are in the group yet</p>
+                    )
+                  }
+                </div>
+              </div>
+
             </>
           ) : (
             <h1>Create a group to view group details</h1>

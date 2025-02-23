@@ -3,5 +3,18 @@
   width: 100%;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 5rem;
+  gap: 2rem;
+}
+
+
+.student-group-container {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); 
+  gap: 20px;
+  justify-content: start; 
+  align-content: start; 
+  padding: 1rem; 
+  overflow-x: hidden;
+  overflow-y: auto;
 }

@@ -19,7 +19,7 @@ const LogoutButton = () => {
     } catch (error) {
       console.error('Error logging out:', error)
     }
-  };
+  }
 
   return <button onClick={handleLogout}>Logout</button>
 }

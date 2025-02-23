@@ -21,7 +21,7 @@ const GroupDisplayComponent = ({ groups, userRole, onGroupSelect }) => {
 
 
   return (
-    <div className="group-container">
+    <div className={userRole === 'Educator' ? 'group-container' : 'student-group-container'}>
       {/* "Create New Group" card */}
       <GroupCard isInitialCard group={userRole} onClick={() => handleCardClick(userRole)} />
 

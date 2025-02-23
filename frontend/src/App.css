@@ -9,6 +9,8 @@
 @import url(./components/TaskCard/TaskCard.css);
 @import url(./components/IndividulTaskCard/IndividualTaskCard.css);
 @import url(./components/TaskDrawer/TaskDrawer.css);
+@import url(./components/Navigation/Navbar.css);
+@import url(./components/GroupMemberCard/GroupMemberCard.css);
 
 /* Modals */
 @import url(./components/modals/IndividualTaskModal/IndividualTaskModal.css);
@@ -39,6 +41,8 @@ body,
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: var(--text-color);
+  width: 100vw;
+  overflow-x: hidden;
 }
 
 header {
@@ -77,11 +81,33 @@ nav ul {
   display: flex;
   list-style-type: none;
   gap: 2em;
+  margin-bottom: 0;
 }
 
 nav a {
   color: var(--secondary2-color);
+  text-decoration: none;
 }
+
+.logout-link {
+  color: var(--secondary2-color);
+  text-decoration: none;
+}
+
+.logout-link:hover {
+  color: var(--secondary1-color);
+  text-decoration: none;
+}
+
+nav a:hover {
+  color: var(--secondary1-color);
+  text-decoration: none;
+}
+
+nav ul li:hover {
+  cursor: pointer;
+}
+
 
 .App {
   text-align: center;
