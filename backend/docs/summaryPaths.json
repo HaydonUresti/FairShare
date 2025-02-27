@@ -1,0 +1,219 @@
+{
+  "/api/summary/retrieveSummary": {
+    "post": {
+      "tags": [
+        "Summary"
+      ],
+      "description": "Retrieve a summary of a group or a student",
+      "summary": "Retrieve a summary",
+      "requestBody": {
+        "required": true,
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "groupId": {
+                  "type": "string",
+                  "example": "kd0938h092fff"
+                },
+                "studentId": {
+                  "type": "string",
+                  "example": "kd0938h092fff"
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "description": {
+                      "type": "string",
+                      "description": "A detailed description of the task",
+                      "example": "Complete the research report on climate change."
+                    },
+                    "estimatedTime": {
+                      "type": "number",
+                      "description": "The estimated time required to complete the task (in hours)",
+                      "example": 3
+                    },
+                    "progress": {
+                      "type": "object",
+                      "properties": {
+                        "completed": {
+                          "type": "boolean",
+                          "description": "Indicates whether the task is completed",
+                          "example": false
+                        },
+                        "notes": {
+                          "type": "string",
+                          "description": "Any notes provided by the student",
+                          "example": "I need more resources for this task."
+                        },
+                        "student": {
+                          "type": "string",
+                          "description": "The ID of the student working on this task",
+                          "example": "679435303c5a3172fdecbe62"
+                        },
+                        "timeWorked": {
+                          "type": "number",
+                          "description": "Total time worked on the task (in hours)",
+                          "example": 1.5
+                        },
+                        "_id": {
+                          "type": "string",
+                          "description": "The unique identifier of the task progress entry",
+                          "example": "67b12c91c20c34871acfdca5"
+                        }
+                      },
+                      "required": [
+                        "completed",
+                        "student",
+                        "timeWorked"
+                      ]
+                    },
+                    "taskWeight": {
+                      "type": "number",
+                      "description": "The weight or importance of the task",
+                      "example": 10
+                    },
+                    "title": {
+                      "type": "string",
+                      "description": "The title of the task",
+                      "example": "Practice Task 1"
+                    },
+                    "_id": {
+                      "type": "string",
+                      "description": "The unique identifier of the task",
+                      "example": "67aaa66b1732a02edb6a5c3f"
+                    },
+                    "memberTaskData": {
+                      "type": "array",
+                      "description": "A list of members and their task progress data",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "number",
+                            "description": "The unique identifier for the member",
+                            "example": 3223522
+                          },
+                          "memberName": {
+                            "type": "string",
+                            "description": "The name of the member",
+                            "example": "Bob"
+                          },
+                          "taskPointsCompleted": {
+                            "type": "number",
+                            "description": "The total task points completed by the member",
+                            "example": 5
+                          },
+                          "tasksCompleted": {
+                            "type": "array",
+                            "description": "A list of completed task IDs",
+                            "items": {
+                              "type": "string"
+                            },
+                            "example": [
+                              "67aaa66b1732a02edb6a5c3f"
+                            ]
+                          },
+                          "totalTimeWorked": {
+                            "type": "number",
+                            "description": "Total time worked by the member (in hours)",
+                            "example": 4.5
+                          },
+                          "assignedTasks": {
+                            "type": "array",
+                            "description": "A list of tasks assigned to the member",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "title": {
+                                  "type": "string",
+                                  "description": "The title of the assigned task",
+                                  "example": "Practice Task 2"
+                                },
+                                "_id": {
+                                  "type": "string",
+                                  "description": "The unique identifier of the assigned task",
+                                  "example": "67bbb77c2847a03fda6b7d4e"
+                                }
+                              }
+                            }
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "memberName",
+                          "taskPointsCompleted",
+                          "totalTimeWorked"
+                        ]
+                      }
+                    }
+                  },
+                  "required": [
+                    "description",
+                    "estimatedTime",
+                    "progress",
+                    "taskWeight",
+                    "title",
+                    "_id",
+                    "memberTaskData"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      },
+      "responses": {
+        "200": {
+          "description": "Successfully retrieved a summary",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "summary": {
+                    "type": "string",
+                    "example": "The group is doing very well..."
+                  }
+                }
+              }
+            }
+          }
+        },
+        "400": {
+          "description": "Missing groupId",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "message": {
+                    "type": "string",
+                    "example": "Missing groupId"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "500": {
+          "description": "Server error",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "message": {
+                    "type": "string",
+                    "example": "Server error"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

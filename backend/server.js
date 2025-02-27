@@ -1,7 +1,8 @@
+import dotenv from 'dotenv'
+dotenv.config()
 import express from 'express'
 import mongoose from 'mongoose'
 import cors from 'cors'
-import dotenv from 'dotenv'
 import path from "path"
 import cookieParser from 'cookie-parser'
 import swaggerUi from 'swagger-ui-express'
@@ -9,14 +10,15 @@ import swaggerUi from 'swagger-ui-express'
 import { fileURLToPath } from "url"
 
 import loadSwaggerFiles from './swagger.js'
+
 import studentRoutes from './routes/studentRoutes.js'
 import educatorRoutes from './routes/educatorRoutes.js'
 import userRoutes from './routes/userRoutes.js'
 import groupRoutes from './routes/groupRoutes.js'
 import taskRoutes from './routes/taskRoutes.js'
+import summaryRoutes from './routes/summaryRoutes.js'
 
 // Load environment variables
-dotenv.config()
 
 const app = express()
 app.use(cors({
@@ -50,6 +52,7 @@ app.use('/api/groups', groupRoutes)
 app.use('/api/students', studentRoutes)
 app.use('/api/educators', educatorRoutes)
 app.use('/api/tasks', taskRoutes)
+app.use('/api/summary', summaryRoutes)
 
 
 app.use(express.static(path.join(__dirname, "build")))

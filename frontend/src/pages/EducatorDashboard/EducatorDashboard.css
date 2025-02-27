@@ -66,10 +66,23 @@
   margin-top: 1rem;
 }
 
-.dashboard-members-div{
+.dashboard-members-div {
   margin-left: 1rem;
   margin-top: 2rem;
   text-align: start;
+}
+
+.ai-description-div {
+  display: flex;
+  flex-direction: row;
+  border: 1px solid black;
+  margin-bottom: 1rem;
+  border-radius: 5px;
+}
+
+.ai-description-div p {
+  margin-left: 1rem;
+  margin-top: 1rem;
 }
 
 .data-view {
@@ -84,7 +97,7 @@
   margin-bottom: 0;
 }
 
-.educator-task-div  {
+.educator-task-div {
   display: flex;
   flex-direction: column;
   justify-content: center;

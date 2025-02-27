@@ -8,13 +8,14 @@ import UpdateTaskModal from '../../components/modals/UpdateTaskModal/UpdateTaskM
 import CreateTaskModal from '../../components/modals/CreateTaskModal/CreateTaskModal.js'
 import GroupMemberCard from '../../components/GroupMemberCard/GroupMemberCard.js'
 
-import { getUserById } from '../../services/userService.js'
+// import { getUserById } from '../../services/userService.js'
 import { getTaskById } from '../../services/taskService.js'
+import { retrieveSummary } from '../../services/summaryService.js'
 
 export default function EducatorDashboard() {
   const [groups, setGroups] = useState([])
   const [selectedGroup, setSelectedGroup] = useState(null)
-  const [memberNames, setNames] = useState([])
+  // const [memberNames, setNames] = useState([])
   const [tasks, setTasks] = useState([])
   const [loading, setLoading] = useState(true)
   const [showUpdateModal, setShowUpdateModal] = useState(false)
@@ -22,6 +23,8 @@ export default function EducatorDashboard() {
   const [selectedUpdateTask, setSelectedUpdateTask] = useState()
   const [selectedTaskStudent, setSelectedTaskStudent] = useState()
   const [groupMemberData, setGroupMemberData] = useState()
+  const [groupSummary, setgroupSummary] = useState()
+  const [groupView, setGroupView] = useState(true) // set to false when in student view
 
   useEffect(() => {
     const fetchGroups = async () => {
@@ -52,25 +55,25 @@ export default function EducatorDashboard() {
       }
     }
 
-    const fetchUserNames = async () => {
-      try {
-        const memberNames = await Promise.all(
-          selectedGroup.members.map(async (memberId) => {
-            const member = await getUserById(memberId)
-            return member.name
-          })
-        )
-        setNames(memberNames)
-      } catch (error) {
-        console.error(`Error fetching user names: ${error}`)
-      } finally {
-        setLoading(false)
-      }
-    }
+    // const fetchUserNames = async () => {
+    //   try {
+    //     const memberNames = await Promise.all(
+    //       selectedGroup.members.map(async (memberId) => {
+    //         const member = await getUserById(memberId)
+    //         return member.name
+    //       })
+    //     )
+    //     setNames(memberNames)
+    //   } catch (error) {
+    //     console.error(`Error fetching user names: ${error}`)
+    //   } finally {
+    //     setLoading(false)
+    //   }
+    // }
 
 
 
-    fetchUserNames()
+    // fetchUserNames()
     fetchTasks()
 
   }, [selectedGroup])
@@ -80,7 +83,6 @@ export default function EducatorDashboard() {
     const fetchTaskData = async () => {
       try {
         const data = await GroupService.getGroupMemberContributions(tasks, selectedGroup?.members);
-        console.log("Generated group member data:", data)
         setGroupMemberData(data)
       } catch (error) {
         console.error(`Error fetching member data: ${error}`)
@@ -88,6 +90,20 @@ export default function EducatorDashboard() {
     }
     fetchTaskData()
   }, [tasks, selectedGroup])
+
+  useEffect(() => {
+    if (!groupMemberData || groupMemberData.length === 0 || !selectedGroup || !groupView) return
+
+    const fetchSummary = async () => {
+      try {
+        const summary = await retrieveSummary(selectedGroup?._id, groupMemberData)
+        setgroupSummary(summary)
+      } catch (error) {
+        console.error(`Error fetching member data: ${error}`)
+      }
+    }
+    fetchSummary()
+  }, [groupMemberData, selectedGroup])
 
   const handleGroupSelect = (group) => {
     setSelectedGroup(group)
@@ -146,9 +162,9 @@ export default function EducatorDashboard() {
                 <h3>Group Join Code</h3>
                 <p><strong>{selectedGroup?.joinCode}</strong></p>
 
-                <div className='ai-description'>
-                  <h4>Progress Update</h4>
-                  <p>Description from GPT</p>
+                <h4>Smart Progress Update</h4>
+                <div className='ai-description-div'>
+                  <p>{groupSummary}</p>
                 </div>
               </div>
               <div className='educator-task-div'>

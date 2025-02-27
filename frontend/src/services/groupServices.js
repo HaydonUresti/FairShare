@@ -1,4 +1,7 @@
 import axios from 'axios'
+import { getUserById } from './userService'
+
+
 const API_URL = process.env.REACT_APP_API_URL
 
 export const createGroup = async (groupName, description, joinCode) => {
@@ -156,29 +159,31 @@ const findTotalTaskWeight = (assignedTasks) => {
     0
 }
 
-export const getGroupMemberContributions = (tasks, groupMembers) => {
+export const getGroupMemberContributions = async (tasks, groupMembers) => {
   const groupMemberData = []
 
-  groupMembers.forEach(memberId => {
+  for (const memberId of groupMembers) {
     const memberTaskData = {}
 
     const assignedTasks = findTasksAssinged(tasks, memberId)
+    memberTaskData.id = memberId
+    const studentData = await getUserById(memberId)
+    memberTaskData.memberName = studentData.name
+
     if (assignedTasks.length === 0) {
-      memberTaskData.id = memberId
       memberTaskData.assignedTasks = {}
       memberTaskData.tasksCompleted = {}
       memberTaskData.totalTimeWorked = 0
       memberTaskData.taskPointsCompleted = 0
     }
     else {
-      memberTaskData.id = memberId
       memberTaskData.assignedTasks = assignedTasks
       memberTaskData.tasksCompleted = findTasksCompleted(assignedTasks)
       memberTaskData.totalTimeWorked = findTimeWorked(assignedTasks)
       memberTaskData.taskPointsCompleted = findTotalTaskWeight(assignedTasks)
     }
     groupMemberData.push(memberTaskData)
-  })
+  }
 
   return groupMemberData
 }

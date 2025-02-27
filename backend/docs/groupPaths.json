@@ -162,7 +162,7 @@
             }
           }
         },
-        "400": {
+        "404": {
           "description": "Group not found",
           "content": {
             "application/json": {

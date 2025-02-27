@@ -10,7 +10,10 @@ export const createNewTask = async (groupId, taskDetails) => {
     if (!description) missingValues.push('description')
     if (!estimatedTime) missingValues.push('estimatedTime')
     if (!taskWeight) missingValues.push('taskWeight')
-
+    if (missingValues.length > 0) {
+      throw new Error(`Missing values: ${missingValues.join(', ')}`)
+    }
+    
     const response = await axios.post(
       `${API_URL}/api/groups/${groupId}/task`,
       {

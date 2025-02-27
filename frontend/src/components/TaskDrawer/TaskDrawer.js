@@ -48,7 +48,7 @@ const TaskDrawer = ({ taskData, handleModal, groupId }) => {
     window.location.reload()
   }
 
-  if (loading) return <p>Loading members...</p>
+  if (loading) return <p>Loading task...</p>
 
   return (
     <div className={`task-drawer ${isOpen ? "open" : ""}`}>

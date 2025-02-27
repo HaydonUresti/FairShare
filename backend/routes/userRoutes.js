@@ -1,5 +1,5 @@
 import express from 'express'
-import UserModel from '../models/Users.js';
+import UserModel from '../models/Users.js'
 import jwt from 'jsonwebtoken'
 
 import * as userService from '../services/userService.js'
@@ -8,7 +8,7 @@ const router = express.Router()
 
 const registerUser = async (req, res) => {
   try {
-    const { email, password, name, userRole } = req.body;
+    const { email, password, name, userRole } = req.body
     const missingFields = [];
     if (!email) missingFields.push('email')
     if (!password) missingFields.push('password')
