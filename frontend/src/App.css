@@ -43,6 +43,9 @@ body,
   color: var(--text-color);
   width: 100vw;
   overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--body-color);
 }
 
 header {
@@ -153,4 +156,81 @@ nav ul li:hover {
   to {
     transform: rotate(360deg);
   }
+}
+
+footer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.footer-links {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+
+.footer-nav {
+  display: flex;
+  align-items: center;
+}
+
+.footer-nav ul {
+  display: flex;
+  list-style-type: none;
+  gap: 8em;
+  margin-bottom: 0;
+  width: 100%;
+
+}
+
+.social-links {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  justify-content: end;
+  align-items: center;
+  width: 100%;
+  margin-right: 1.9rem;
+  padding-top: 0.5rem;
+}
+
+.footer-hr {
+  width: 80%;
+}
+
+.footer-nav a {
+  color: var(--secondary2-color);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.footer-bottom {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.footer-bottom p {
+  margin-left: 1.9rem;
+}
+
+#footer-logo {
+  margin-bottom: 0.5rem;
+}
+
+.footer-policy-div {
+  gap: 1rem;
+  display: flex;
+  flex-direction: row;
+  /* background-color: #022129; */
+  justify-content: space-between;
+  margin-right: 1.9rem;
+}
+
+.footer-policy-div a {
+  color: var(--secondary2-color);
+  text-decoration: none;
 }

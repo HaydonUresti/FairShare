@@ -161,7 +161,6 @@ export default function EducatorDashboard() {
                 <h1>{selectedGroup?.groupName}</h1>
                 <h3>Group Join Code</h3>
                 <p><strong>{selectedGroup?.joinCode}</strong></p>
-
                 <h4>Smart Progress Update</h4>
                 <div className='ai-description-div'>
                   <p>{groupSummary}</p>
