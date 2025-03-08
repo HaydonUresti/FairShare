@@ -1,0 +1,33 @@
+.hero-div {
+  display: flex;
+  justify-content: start;
+  width: 100%;
+  height: 100%;
+  background-color: var(--primary-color);
+  /* opacity: 0.5; */
+}
+
+.hero-content-div {
+  position: relative;
+}
+
+#hero-image {
+  opacity: 0.5;
+}
+
+.hero-button {
+  background-color: var(--secondary2-color);
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  position: absolute;
+  left: 50%;
+  /* right: 50%; */
+  top: 50%;
+  /* Keeps it within the content div */
+  z-index: 3;
+  /* Ensures the button is above everything */
+}

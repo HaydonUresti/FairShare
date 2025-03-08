@@ -10,7 +10,7 @@ const openai = new OpenAI({
 })
 
 const getOpenAiResponse = async (studentId, userMessage) => {
-  const systemMessage = studentId ? studentMessage : groupMessage
+  const systemMessage = studentId ? `${studentMessage} --- The ID of this student is ${studentId}, match this ID with a user to get their name.` : groupMessage
   try {
     const response = await openai.chat.completions.create({
       model: GPT_MODEL,
@@ -27,10 +27,11 @@ const getOpenAiResponse = async (studentId, userMessage) => {
   }
 }
 
-const buildUserMessage = (data) => {
+const buildUserMessage = (data, studentId) => {
   const userMessage = {}
   userMessage.data = data
-  userMessage.context = userDataContext
+  const dataContext = studentId ? `${JSON.stringify(userDataContext)} --- The ID of this student is ${studentId}, match this ID with a user to get their name.` : userDataContext
+  userMessage.context = dataContext
   return JSON.stringify(userMessage)
 }
 
@@ -49,7 +50,7 @@ export const getSummary = async (groupId, data, studentId) => {
   }
 
   // otherwise delete what is there, create a new summary, and save it
-  const userMessage = buildUserMessage(data)
+  const userMessage = buildUserMessage(data, studentId)
   await deleteSummary(groupId, studentId)
   console.log(`User Messate === ${userMessage}`)
   const newSummary = await getOpenAiResponse(studentId, userMessage)

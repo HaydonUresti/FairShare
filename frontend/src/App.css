@@ -1,6 +1,8 @@
 /* pages */
 @import url(./pages/GroupSelection/GroupSelection.css);
 @import url(./pages/GroupWorkspace/GroupWorkspace.css);
+@import url(./pages/Home/Home.css);
+@import url(./pages/SignIn/SignIn.css);
 
 /* components */
 @import url(./components/TaskDisplayComponent/TaskDisplayComponent.css);

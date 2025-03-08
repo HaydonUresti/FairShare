@@ -106,6 +106,7 @@ export default function GroupWorkspace() {
             )}
           </div>
         </div>
+        <button className='chat-button'><strong>Group Chat</strong></button>
       </div>
 
       <IndividualTaskModal

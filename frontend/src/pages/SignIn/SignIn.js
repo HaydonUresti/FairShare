@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { loginUser, registerUser } from '../services/userService'
+import { loginUser, registerUser } from '../../services/userService'
 
 const API_URL = process.env.REACT_APP_API_URL
 
@@ -49,10 +49,10 @@ export default function SignIn() {
 
   return (
     <>
-      <div >
-        <h1>Sign In</h1>
-        <div>
-          <h2>Register</h2>
+      <div className='signin-page'>
+        {/* <h1>Sign In</h1> */}
+        <div className='signup-div'>
+          <h2 className='login-headers'>Register</h2>
           <form onSubmit={handleRegister}>
             <div>
               <label htmlFor='email'>
@@ -78,7 +78,7 @@ export default function SignIn() {
                 onChange={(email) => setEmail(email.target.value)}
               />
             </div>
-            <div>
+            <div className='signin-group'>
               <label htmlFor='email'>
                 <strong>Password</strong>
                 <input
@@ -90,7 +90,7 @@ export default function SignIn() {
               </label>
             </div>
             <div>
-              <label htmlfor='userRole'>Select an option:</label>
+              <label htmlfor='userRole'><strong>Select an account type:</strong></label>
               <select
                 id='userRoleSelection'
                 name='userRole'
@@ -100,12 +100,12 @@ export default function SignIn() {
                 <option value='Student'>Student</option>
               </select>
             </div>
-            <button type='submit'>Register</button>
+            <button type='submit' className='login-button'><strong>Register</strong></button>
           </form>
         </div>
-        <div>
-          <p>Already Have an Account?</p>
-          <h2>Login</h2>
+        <p className='signin-divider-div'><strong>Already have an account?</strong></p>
+        <div className='login-div'>
+          <h2 className='login-headers'>Login</h2>
           <form onSubmit={handleLogin}>
             <div>
               <label htmlFor='email'>
@@ -130,7 +130,7 @@ export default function SignIn() {
                 />
               </label>
             </div>
-            <button type='submit'>Login</button>
+            <button className='login-button' type='submit'><strong>Login</strong></button>
           </form>
         </div>
       </div>

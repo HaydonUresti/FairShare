@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 // import { getUserById } from '../../services/userService.js'
 
 const GroupMemberCard = ({ studentData, onClick }) => {
+  onClick = onClick ? onClick : () => {}
   // const [memberName, setNames] = useState([])
   // const [loading, setLoading] = useState(true)
 
@@ -29,7 +30,7 @@ const GroupMemberCard = ({ studentData, onClick }) => {
   // if (loading) return <p>Loading members...</p>
 
   return (
-    <div className={'group-member-card'}>
+    <div className={'group-member-card'} onClick={() => onClick(studentData)}>
       <h3>{studentData.memberName}</h3>
       <div className='group-member-data-div'>
         <p><strong>Time Worked: </strong>{studentData.totalTimeWorked} hours</p>

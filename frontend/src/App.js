@@ -12,7 +12,7 @@ import './styles/larger.css'
 import './pages/EducatorDashboard/EducatorDashboard.css'
 
 import Home from './pages/Home/Home.js'
-import SignIn from './pages/SignIn.js'
+import SignIn from './pages/SignIn/SignIn.js'
 import EducatorDashboard from './pages/EducatorDashboard/EducatorDashboard.js'
 import GroupSelection from './pages/GroupSelection/GroupSelection.js'
 import GroupWorkspace from './pages/GroupWorkspace/GroupWorkspace.js'
