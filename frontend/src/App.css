@@ -43,11 +43,14 @@ body,
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: var(--text-color);
-  width: 100vw;
-  overflow-x: hidden;
+  width: 100%;
   display: flex;
   flex-direction: column;
+}
+
+main {
   background-color: var(--body-color);
+
 }
 
 header {
@@ -60,7 +63,7 @@ header {
   height: auto;
 }
 
-#logo-div {
+.logo-div {
   background-color: white;
   border-radius: 5px;
   max-width: 100vw;
@@ -75,6 +78,7 @@ header {
 
 nav {
   display: flex;
+
   justify-content: space-between;
   align-items: center;
   background-color: #0078d4;
@@ -84,9 +88,13 @@ nav {
 
 nav ul {
   display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
   list-style-type: none;
   gap: 2em;
   margin-bottom: 0;
+  white-space: nowrap;
 }
 
 nav a {
@@ -97,6 +105,7 @@ nav a {
 .logout-link {
   color: var(--secondary2-color);
   text-decoration: none;
+  margin: 0;
 }
 
 .logout-link:hover {
@@ -227,7 +236,6 @@ footer {
   gap: 1rem;
   display: flex;
   flex-direction: row;
-  /* background-color: #022129; */
   justify-content: space-between;
   margin-right: 1.9rem;
 }
