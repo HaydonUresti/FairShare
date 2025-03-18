@@ -35,11 +35,11 @@ function App() {
       {
         // only add the header if we are not on the home page
         isHome ? null : (
-          <header className={isHome ? 'home-header' : 'header'}>
-            <div className={isHome ? 'home-logo-div' : 'logo-div'}>
-              <img id="logo" src={isHome ? require("./images/fairShareHorizontalLogo-white2.webp") : require("./images/fairShareHorizontalLogo.webp")} alt="FairShare Logo" />
+          <header className={'header'}>
+            <div className={'logo-div'}>
+              <img id="logo" src={require("./images/fairShareHorizontalLogo.webp")} alt="FairShare Logo" />
             </div>
-            <Navbar location={location} />
+            <Navbar />
             {/* <LogoutButton /> */}
           </header>
         )
@@ -76,12 +76,12 @@ function App() {
                 <Link to="/home"><strong>Home</strong></Link>
               </li>
               <li>
-                <a href="https://www.youtube.com/watch?v=xvFZjo5PgG0" target="_blank" rel="noopener noreferrer">
+                <a target="_blank" rel="noopener noreferrer">
                   <strong>About Us</strong>
                 </a>
               </li>
               <li>
-                <a href="https://www.youtube.com/watch?v=xvFZjo5PgG0" target="_blank" rel="noopener noreferrer">
+                <a target="_blank" rel="noopener noreferrer">
                   <strong>Help</strong>
                 </a>
               </li>
@@ -104,10 +104,10 @@ function App() {
           <p>© 2025 FairShare</p>
           <img id="footer-logo" src={require("./images/fairShareHorizontalLogo.webp")} height={45} alt="FairShare Logo" />
           <div className='footer-policy-div'>
-            <a href="https://www.youtube.com/watch?v=xvFZjo5PgG0" target="_blank" rel="noopener noreferrer">
+            <a target="_blank" rel="noopener noreferrer">
               Terms of Service
             </a>
-            <a href="https://www.youtube.com/watch?v=xvFZjo5PgG0" target="_blank" rel="noopener noreferrer">
+            <a target="_blank" rel="noopener noreferrer">
               Privacy Policy
             </a>
           </div>
