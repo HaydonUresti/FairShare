@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { logoutUser } from '../../services/userService.js'
 
 
-export default function Navbar({ location }) {
+export default function Navbar({ location, user }) {
 
   const handleSignInNavigation = () => {
     const userRole = localStorage.getItem('userRole')
@@ -38,10 +38,10 @@ export default function Navbar({ location }) {
     <nav className={location ? 'home-nav nav' : 'nav'}>
       <ul>
         <li>
-          <Link to="/home"><strong>Home</strong></Link>
+          <Link to='/home'><strong>Home</strong></Link>
         </li>
         <li>
-          <Link to={handleSignInNavigation()}><strong>About Us</strong></Link>
+          <Link to='/about-us'><strong>About Us</strong></Link>
         </li>
         <li>
           {!localStorage.getItem('userId') ?
@@ -49,7 +49,7 @@ export default function Navbar({ location }) {
             (<p onClick={handleLogout} className="logout-link"><strong>Logout</strong></p>)
           }
         </li>
-        {location === 'home' ? (
+        {(location === 'home' && !user) ? (
           <>
             <Link to='/sign-in'>
               <button className="hero-button nav-hero-button">

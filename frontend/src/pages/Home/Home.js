@@ -11,7 +11,6 @@ export default function Home() {
   useEffect(() => {
     const handleScroll = () => {
       const scrollPosition = window.scrollY || window.pageYOffset;
-      console.log(scrollPosition)
       setScrolled(scrollPosition > 50)
       setScrolledToBottom(scrollPosition > 1000)
     };
@@ -26,7 +25,7 @@ export default function Home() {
         <div className='home-logo-div'>
           <img id='logo' src={require('../../images/fairShareHorizontalLogo-white2.webp')} alt='FairShare Logo' />
         </div>
-        <Navbar location={'home'} />
+        <Navbar location={'home'} user={localStorage.getItem('userId') ? true : false} />
       </header>
 
       <div className='hero-div'>

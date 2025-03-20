@@ -12,47 +12,47 @@ import './styles/larger.css'
 import './pages/EducatorDashboard/EducatorDashboard.css'
 
 import Home from './pages/Home/Home.js'
+import AboutUs from './pages/AboutUs/AboutUs.js'
 import SignIn from './pages/SignIn/SignIn.js'
 import EducatorDashboard from './pages/EducatorDashboard/EducatorDashboard.js'
 import GroupSelection from './pages/GroupSelection/GroupSelection.js'
 import GroupWorkspace from './pages/GroupWorkspace/GroupWorkspace.js'
 
 import Navbar from './components/Navigation/Navbar.js'
-import LogoutButton from './components/logoutButton.js'
 
 function App() {
   const location = useLocation();
-  let isHome
-  if (location.pathname === '/' || location.pathname === '/home') {
-    isHome = true
+  let displayHeader
+  if (location.pathname === '/' || location.pathname === '/home' || location.pathname === '/about-us') {
+    displayHeader = true
   }
   else {
-    isHome = false
+    displayHeader = false
   }
   return (
 
     <div className="App">
       {
-        // only add the header if we are not on the home page
-        isHome ? null : (
+        // only add the header if we are not on the Home or About Us pages
+        displayHeader ? null : (
           <header className={'header'}>
             <div className={'logo-div'}>
               <img id="logo" src={require("./images/fairShareHorizontalLogo.webp")} alt="FairShare Logo" />
             </div>
             <Navbar />
-            {/* <LogoutButton /> */}
           </header>
         )
       }
 
       <div className='main-wrapper'>
-        <main className={isHome ? 'home-main' : 'main'}>
+        <main className={displayHeader ? 'home-main' : 'main'}>
           <Routes>
             <Route index element={<Home />} />
             <Route path="/" element={<Home />} />
             <Route path="/home" element={<Home />} />
             <Route path="/sign-in" element={<SignIn />} />
             <Route path="/unauthorized" element={<Unauthorized />} />
+            <Route path="/about-us" element={<AboutUs />} />
 
             {/* Protected Routes - Educators can access everything, Students are restricted */}
             {/* Educators only */}
@@ -76,9 +76,7 @@ function App() {
                 <Link to="/home"><strong>Home</strong></Link>
               </li>
               <li>
-                <a target="_blank" rel="noopener noreferrer">
-                  <strong>About Us</strong>
-                </a>
+                <Link to="/about-us"><strong>About Us</strong></Link>
               </li>
               <li>
                 <a target="_blank" rel="noopener noreferrer">

@@ -1,0 +1,50 @@
+.about-header {
+  position: relative;
+  z-index: 2;
+}
+
+.main-about-us-div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  z-index: 10;
+  padding-top: 3rem;
+  color: black;
+}
+
+.about-image {
+  max-width: 50%;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+
+}
+
+.about-us-div {}
+
+.about-div {
+  width: 50%;
+  margin-top: 1rem;
+  /* background-color: yellow; */
+  margin-bottom: 2rem;
+
+}
+
+.why-built-div ul li {
+  list-style-type: none;
+}
+
+.top-about-div {
+  background-color: var(--primary-color);
+  height: 20rem;
+  width: 100%;
+  position: fixed;
+  /* padding-top: 20rem;  */
+  top: 0;
+  z-index: 0;
+}
+
+.about-wrapper-div {
+  position: relative;
+}
