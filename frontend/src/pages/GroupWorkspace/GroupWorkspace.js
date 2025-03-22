@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useLocation } from 'react-router-dom'
+import { useLocation, useParams } from 'react-router-dom'
 import { getGroupById } from '../../services/groupServices.js'
 import { getTaskById } from '../../services/taskService.js'
 
@@ -8,13 +8,16 @@ import IndividualTaskCard from '../../components/IndividulTaskCard/IndividualTas
 import IndividualTaskModal from '../../components/modals/IndividualTaskModal/IndividualTaskModal.js'
 
 export default function GroupWorkspace() {
+  const { groupId, studentId } = useParams()
   const currentUser = localStorage.getItem('userId')
   const location = useLocation()
-  const groupData = location.state
+  // const groupData = location.state
+  const groupData = groupId
+
 
   const [groupName, setGroupName] = useState("")
   const [groupMembers, setGroupMembers] = useState([])
-  const [groupDescription, setGroupDescription] = useState("A group")
+  const [groupDescription, setGroupDescription] = useState('A group')
   const [groupTasks, setGroupTasks] = useState([])
   const [loading, setLoading] = useState(true)
   const [individualTasks, setIndividualTasks] = useState([])
@@ -25,11 +28,11 @@ export default function GroupWorkspace() {
   const [selectedStudents, setSelectedStudents] = useState({})
 
   useEffect(() => {
-    if (!groupData || !groupData.groupId) return
+    if (!groupData) return
 
     const fetchGroupData = async () => {
       try {
-        const response = await getGroupById(groupData.groupId)
+        const response = await getGroupById(groupData)
         console.log("Fetched Group Data:", response.groupData)
         setGroupName(response.groupData.groupName)
         setGroupMembers(response.groupData.members)
@@ -56,7 +59,7 @@ export default function GroupWorkspace() {
     }
 
     const studentTasks = taskObjectsArray.filter(task =>
-      task.task.progress.some(progressEntry => progressEntry.student === currentUser)
+      task.task.progress.some(progressEntry => progressEntry.student === studentId)
     )
     setIndividualTasks(studentTasks)
   }

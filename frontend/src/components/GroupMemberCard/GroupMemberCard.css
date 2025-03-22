@@ -1,11 +1,14 @@
 .group-member-card {
   border: 1px solid black;
   width: 200px;
-  /* border-radius: 5px; */
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+.student-selection-member-card {
+  cursor: pointer;
 }
 
 .group-member-card h3 {
@@ -14,9 +17,3 @@
   background-color: var(--primary-color);
   text-align: center;
 }
-
-/* 
-.group-member-data-div {
-  
-} */
-

@@ -3,7 +3,6 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-
   margin-top: 3rem;
 }
 
@@ -11,7 +10,6 @@
   width: 40vb;
   border: 1px solid black;
   border-radius: 5px;
-
   display: flex;
   flex-direction: column;
   row-gap: 1rem;
@@ -49,7 +47,6 @@
   width: 50%;
   margin-bottom: 1rem;
   box-shadow: 1px 1px;
-
 }
 
 .login-headers {

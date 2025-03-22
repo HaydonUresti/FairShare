@@ -1,9 +1,6 @@
 .task-drawer {
-  /* display: flex; */
-  /* flex-direction: row; */
-  /* background-color: aqua; */
   border: 1px solid black;
-  
+  cursor: pointer;
 }
 
 .drawer-preview {

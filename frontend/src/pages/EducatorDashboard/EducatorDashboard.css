@@ -17,7 +17,6 @@
   margin-left: 0.5rem;
 }
 
-
 .main-educator-content-div {
   width: 100%;
 }
@@ -34,8 +33,6 @@
   margin-right: 5rem;
 }
 
-
-
 .group-deletion-button {
   background-color: var(--secondary2-color);
   border-radius: 5px;
@@ -43,11 +40,6 @@
   border: none;
   box-shadow: 1px 1px;
 }
-
-/* .delete-button-div:hover {
-  background-color: brown;
-  border-radius: 5px;
-} */
 
 .data-view-selection-div {
   display: flex;
@@ -124,6 +116,10 @@
   text-align: center;
 }
 
+.create-task-card {
+  cursor: pointer;
+}
+
 .view-selection {
   box-shadow: 1px 1px;
   border-radius: 5px;
@@ -135,5 +131,4 @@
 
 .student-data-view {
   display: flex;
-  /* flex-direction:; */
 }

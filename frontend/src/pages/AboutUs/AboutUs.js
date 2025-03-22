@@ -1,7 +1,6 @@
 import React from 'react'
 import Navbar from '../../components/Navigation/Navbar.js'
 
-
 export default function AboutUs() {
 
   return (

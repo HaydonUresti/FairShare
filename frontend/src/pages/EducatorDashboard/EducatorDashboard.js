@@ -1,6 +1,7 @@
 // The page that educator users are taken to after signing in
 import React, { useEffect, useState } from 'react'
 import * as GroupService from '../../services/groupServices.js'
+import { useParams } from 'react-router-dom'
 
 import GroupDisplayComponent from '../../components/GroupDisplayComponent/GroupDisplayComponent.js'
 import TaskDrawer from '../../components/TaskDrawer/TaskDrawer.js'
@@ -12,6 +13,8 @@ import { getTaskById } from '../../services/taskService.js'
 import { retrieveSummary } from '../../services/summaryService.js'
 
 export default function EducatorDashboard() {
+  const { educatorId } = useParams()
+
   const [groups, setGroups] = useState([])
   const [selectedGroup, setSelectedGroup] = useState(null)
   const [tasks, setTasks] = useState([])
@@ -30,7 +33,7 @@ export default function EducatorDashboard() {
   useEffect(() => {
     const fetchGroups = async () => {
       try {
-        const response = await GroupService.getEducatorGroups()
+        const response = await GroupService.getEducatorGroups(educatorId)
         console.log('Groups:', response.data.groups)
         const retrievedGroups = response ? response.data : []
         setSelectedGroup(response?.data[0])
@@ -47,13 +50,15 @@ export default function EducatorDashboard() {
 
     const fetchTasks = async () => {
       try {
-        const groupTasks = await Promise.all(selectedGroup.tasks.map(getTaskById))
-        setTasks(groupTasks)
-
         // set other states to default
         setSelectedStudent(undefined)
         setStudentSummary(undefined)
         setGroupSummary(undefined)
+
+        const groupTasks = await Promise.all(selectedGroup.tasks.map((task) => getTaskById(task)))
+        setTasks(groupTasks)
+
+
 
       } catch (error) {
         console.error(`Error fetching group tasks: ${error}`)
@@ -66,10 +71,23 @@ export default function EducatorDashboard() {
   }, [selectedGroup])
 
   useEffect(() => {
-    if (!tasks || tasks.length === 0 || !selectedGroup) return;
+    // if (!tasks || tasks.length === 0 || !selectedGroup) return
+    if (!tasks || tasks.length === 0 || !selectedGroup) {
+      setGroupMemberData()
+      return
+    }
+
     const fetchTaskData = async () => {
       try {
-        const data = await GroupService.getGroupMemberContributions(tasks, selectedGroup?.members);
+
+        if (selectedGroup.tasks.length === 0) {
+          const data = await GroupService.getGroupMemberContributions(selectedGroup.tasks, selectedGroup?.members)
+
+          setGroupMemberData(data)
+          return
+        }
+
+        const data = await GroupService.getGroupMemberContributions(tasks, selectedGroup?.members)
         setGroupMemberData(data)
       } catch (error) {
         console.error(`Error fetching member data: ${error}`)
@@ -213,7 +231,6 @@ export default function EducatorDashboard() {
                       }
                     </div>
                   </div>
-
                 </>
               ) : (
                 <h1>Create a group to view group details</h1>
@@ -247,7 +264,7 @@ export default function EducatorDashboard() {
                         {
                           groupMemberData && Object.keys(groupMemberData).length > 0 ? (
                             groupMemberData.map((member, index) => (
-                              <GroupMemberCard key={index} studentData={member} onClick={() => handleSelectStudent(member)} />
+                              <GroupMemberCard key={index} studentData={member} onClick={() => handleSelectStudent(member)} studentView={true} />
                             ))
                           ) : (
                             <p>No students are in the group yet</p>

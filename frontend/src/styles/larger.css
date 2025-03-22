@@ -5,7 +5,6 @@ main {
     overflow-y: hidden;
     overflow-x: hidden;
     margin-bottom: 1rem;
-    /* padding-bottom: 1rem; */
 }
 
 .main-wrapper {
@@ -18,11 +17,6 @@ main {
 
 /* Header */
 #logo-div {
-    /* grid-row: 1; */
-    /* display: flex; */
-    /* flex-direction: row;
-    align-items: center;
-    justify-content: center; */
     flex: .25;
     overflow-x: hidden;
 }
@@ -34,7 +28,6 @@ nav {
 }
 
 nav ul {
-
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -47,7 +40,6 @@ nav ul {
 
 footer {
     height: auto;
-    /* background-color: var(--body-color); */
     background-color: white;
 }
 

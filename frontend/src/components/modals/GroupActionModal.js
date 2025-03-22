@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Modal, Button } from 'react-bootstrap'
 import { createGroup, addGroupMember } from '../../services/groupServices'
 
-const GroupActionModal = ({ show, onHide, onSave, action }) => {
+const GroupActionModal = ({ show, onHide, onSave, action, studentId }) => {
   const [groupName, setGroupName] = useState()
   const [description, setDescription] = useState()
   const [joinCode, setjoinCode] = useState()
@@ -21,7 +21,7 @@ const GroupActionModal = ({ show, onHide, onSave, action }) => {
       }
     } else {
       try {
-        const result = await addGroupMember(joinCode)
+        const result = await addGroupMember(joinCode, studentId)
         console.log(`Successfully created group: ${result}`)
         onSave()
         window.location.reload()

@@ -5,7 +5,7 @@ import { createNewTask } from '../../../services/taskService.js'
 import { getUserById } from '../../../services/userService.js'
 import { useNavigate } from 'react-router-dom'
 
-const GroupModal = ({ show, onHide, title, content, onSave, userRole }) => {
+const GroupModal = ({ show, onHide, title, content, onSave, userRole, groupId, studentId }) => {
   const navigate = useNavigate()
   const [assignTaskMode, setAssignTaskMode] = useState(false)
   const [taskData, setTaskData] = useState({ title: '', description: '', estimatedTime: '', taskWeight: '' })
@@ -38,7 +38,7 @@ const GroupModal = ({ show, onHide, title, content, onSave, userRole }) => {
   }, [content?.members])
 
   const navigateToWorkspace = () => {
-    navigate('/group-workspace', { state: { groupId: content?._id } })
+    navigate(`/group-workspace/${content?._id}/${studentId}`, { state: { groupId: content?._id } })
   }
 
   const handleInputChange = (e) => {

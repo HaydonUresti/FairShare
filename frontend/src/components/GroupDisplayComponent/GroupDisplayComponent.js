@@ -4,7 +4,7 @@ import GroupModal from '../modals/GroupModal/GroupModal.js'
 import GroupActionModal from '../modals/GroupActionModal.js'
 
 
-const GroupDisplayComponent = ({ groups, userRole, onGroupSelect }) => {
+const GroupDisplayComponent = ({ groups, userRole, onGroupSelect, studentId }) => {
 
   const [showGroupModal, setShowGroupModal] = useState(false)
   const [selectedGroup, setSelectedGroup] = useState(null)
@@ -18,7 +18,6 @@ const GroupDisplayComponent = ({ groups, userRole, onGroupSelect }) => {
       setShowGroupModal(true)
     }
   }
-
 
   return (
     <div className={userRole === 'Educator' ? 'group-container' : 'student-group-container'}>
@@ -44,6 +43,7 @@ const GroupDisplayComponent = ({ groups, userRole, onGroupSelect }) => {
           setShowGroupModal(false)
         }}
         userRole={userRole}
+        studentId={studentId}
       />
 
       {/* The Create New Group Modal */}
@@ -55,6 +55,7 @@ const GroupDisplayComponent = ({ groups, userRole, onGroupSelect }) => {
           setShowCreateOrJoinModal(false)
         }}
         action={userRole}
+        studentId={studentId}
       />
     </div>
   )
