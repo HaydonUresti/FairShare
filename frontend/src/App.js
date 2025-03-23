@@ -47,7 +47,7 @@ function App() {
       <div className='main-wrapper'>
         <main className={displayHeader ? 'home-main' : 'main'}>
           <Routes>
-            <Route path="/index.html" element={<Navigate to="/" replace />} />
+            {/* <Route path="/index.html" element={<Navigate to="/" replace />} /> */}
 
             <Route index element={<Home />} />
             <Route path="/" element={<Home />} />
