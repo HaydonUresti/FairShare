@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Routes, Route, Link, useLocation } from 'react-router-dom'
+import { Routes, Route, Link, useLocation, Navigate } from 'react-router-dom'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faFacebook, faXTwitter, faYoutube } from "@fortawesome/free-brands-svg-icons"
 
@@ -47,6 +47,8 @@ function App() {
       <div className='main-wrapper'>
         <main className={displayHeader ? 'home-main' : 'main'}>
           <Routes>
+            <Route path="/index.html" element={<Navigate to="/" replace />} />
+
             <Route index element={<Home />} />
             <Route path="/" element={<Home />} />
             <Route path="/home" element={<Home />} />
