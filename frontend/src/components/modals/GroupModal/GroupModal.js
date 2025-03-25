@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Modal, Button, Form } from 'react-bootstrap'
-import { removeGroupMember} from '../../../services/groupServices.js'
+import { removeGroupMember } from '../../../services/groupServices.js'
 import { createNewTask } from '../../../services/taskService.js'
 import { getUserById } from '../../../services/userService.js'
 import { useNavigate } from 'react-router-dom'
@@ -38,7 +38,7 @@ const GroupModal = ({ show, onHide, title, content, onSave, userRole, groupId, s
   }, [content?.members])
 
   const navigateToWorkspace = () => {
-    navigate(`/group-workspace/${content?._id}/${studentId}`, { state: { groupId: content?._id } })
+    navigate(`/group-workspace`, { state: { groupId: content?._id, studentId: studentId } })
   }
 
   const handleInputChange = (e) => {
@@ -60,7 +60,7 @@ const GroupModal = ({ show, onHide, title, content, onSave, userRole, groupId, s
     }
   }
 
-  
+
 
   const handleAssignTask = async (e) => {
     e.preventDefault()

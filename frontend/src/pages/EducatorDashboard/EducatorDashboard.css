@@ -132,3 +132,26 @@
 .student-data-view {
   display: flex;
 }
+
+.educator-student-buttons-div {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: center;
+}
+
+.educator-workspace-button {
+  background-color: var(--primary-color);
+  margin-top: .5rem;
+  margin-right: 1rem;
+  border-radius: 5px;
+  box-shadow: 1px 1px;
+}
+
+.educator-group-selection-button {
+  background-color: var(--secondary1-color);
+  margin-top: .5rem;
+  margin-left: 1rem;
+  border-radius: 5px;
+  box-shadow: 1px 1px;
+}

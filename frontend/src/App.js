@@ -59,19 +59,13 @@ function App() {
             {/* Protected Routes - Educators can access everything, Students are restricted */}
             {/* Educators only */}
             <Route element={<ProtectedRoute allowedRoles={['Educator']} />}>
-              <Route path="/educator-dashboard/:educatorId" element={<EducatorDashboard />} />
               <Route path="/educator-dashboard" element={<EducatorDashboard />} />
-
             </Route>
 
             {/* Educators and Students */}
             <Route element={<ProtectedRoute allowedRoles={['Educator', 'Student']} />}>
-              <Route path="/group-workspace/:groupId/:studentId" element={<GroupWorkspace />} />
               <Route path="/group-workspace" element={<GroupWorkspace />} />
-
-              <Route path="/group-selection/:studentId" element={<GroupSelection />} />
               <Route path="/group-selection" element={<GroupSelection />} />
-
             </Route>
           </Routes>
         </main>

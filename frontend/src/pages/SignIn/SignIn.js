@@ -35,9 +35,10 @@ export default function SignIn() {
       const result = await loginUser(email, password)
 
       if (result?.data?.user?.role === 'Educator') {
-        navigate(`/educator-dashboard/${result.data.user.id}`)
+        navigate(`/educator-dashboard`)
       } else if (result?.data?.user?.role === 'Student') {
-        navigate(`/group-selection/${result.data.user.id}`)
+        navigate('/group-selection', { state: { studentId: localStorage.getItem('userId') } })
+
       } else {
         console.log('Unknown user role:', result?.data.userRole)
       }

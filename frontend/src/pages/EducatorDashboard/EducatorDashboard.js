@@ -1,7 +1,8 @@
 // The page that educator users are taken to after signing in
 import React, { useEffect, useState } from 'react'
 import * as GroupService from '../../services/groupServices.js'
-import { useParams } from 'react-router-dom'
+// import { Navigate } from 'react-router-dom'
+import { useNavigate } from "react-router-dom";
 
 import GroupDisplayComponent from '../../components/GroupDisplayComponent/GroupDisplayComponent.js'
 import TaskDrawer from '../../components/TaskDrawer/TaskDrawer.js'
@@ -13,7 +14,9 @@ import { getTaskById } from '../../services/taskService.js'
 import { retrieveSummary } from '../../services/summaryService.js'
 
 export default function EducatorDashboard() {
-  const { educatorId } = useParams()
+  // const { educatorId } = useParams()
+  const navigate = useNavigate()
+  const educatorId = localStorage.getItem('userId')
 
   const [groups, setGroups] = useState([])
   const [selectedGroup, setSelectedGroup] = useState(null)
@@ -59,7 +62,6 @@ export default function EducatorDashboard() {
         setTasks(groupTasks)
 
 
-
       } catch (error) {
         console.error(`Error fetching group tasks: ${error}`)
       } finally {
@@ -71,7 +73,6 @@ export default function EducatorDashboard() {
   }, [selectedGroup])
 
   useEffect(() => {
-    // if (!tasks || tasks.length === 0 || !selectedGroup) return
     if (!tasks || tasks.length === 0 || !selectedGroup) {
       setGroupMemberData()
       return
@@ -160,6 +161,14 @@ export default function EducatorDashboard() {
 
   const handleSelectStudent = (member) => {
     setSelectedStudent(member)
+  }
+
+  const handleNavigateToWorkspace = () => {
+    navigate('/group-workspace', { state: { groupId: selectedGroup?._id, studentId: selectedStudent?.id } })
+  }
+
+  const handleNavigateToGroupSelection = () => {
+    navigate('/group-selection', { state: { studentId: selectedStudent?.id } })
   }
 
   return (
@@ -294,6 +303,11 @@ export default function EducatorDashboard() {
                           )
                         }
                       </div>
+                      {/* The buttons dive */}
+                      {selectedStudent ? (<div className='educator-student-buttons-div'>
+                        <button className='educator-student-button educator-workspace-button' onClick={handleNavigateToWorkspace}><strong>Go to Workspace</strong></button>
+                        <button className='educator-student-button educator-group-selection-button' onClick={handleNavigateToGroupSelection}><strong>Go to Group Selection</strong></button>
+                      </div>) : null}
                     </div>
                   </>
                 ) : (

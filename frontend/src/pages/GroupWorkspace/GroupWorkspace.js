@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useLocation, useParams } from 'react-router-dom'
+import { useLocation } from 'react-router-dom'
 import { getGroupById } from '../../services/groupServices.js'
 import { getTaskById } from '../../services/taskService.js'
 
@@ -8,9 +8,13 @@ import IndividualTaskCard from '../../components/IndividulTaskCard/IndividualTas
 import IndividualTaskModal from '../../components/modals/IndividualTaskModal/IndividualTaskModal.js'
 
 export default function GroupWorkspace() {
-  const { groupId, studentId } = useParams()
-  const currentUser = localStorage.getItem('userId')
   const location = useLocation()
+
+  const { groupId, studentId } = location.state || localStorage.getItem('userId')
+  const [pageParams, setPageParams] = useState(location.state)
+  // const [state, setState] = useState(location.state || { defaultValue: "Fallback Data" })
+
+  const currentUser = localStorage.getItem('userId')
   // const groupData = location.state
   const groupData = groupId
 
