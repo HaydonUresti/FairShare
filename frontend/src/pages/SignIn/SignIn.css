@@ -47,6 +47,7 @@
   background-color: var(--secondary1-color);
   width: 50%;
   margin-bottom: 1rem;
+  border-radius: 5px;
   box-shadow: 1px 1px;
 }
 
