@@ -49,7 +49,5 @@ const updateTask = async (req, res) => {
 
 router.get('/:taskId', getTaskById)
 router.patch('/:taskId', updateTask)
-// PATCH /tasks/:taskId/progress/:studentId → Update a student’s progress on a task (e.g., add a grade)
-// GET /tasks?studentId=123 → Get all tasks a student has worked on (cross-group)
 
 export default router

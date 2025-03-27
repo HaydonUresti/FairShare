@@ -13,7 +13,7 @@ const GroupActionModal = ({ show, onHide, onSave, action, studentId }) => {
     if (action === 'Educator') {
       try {
         const result = await createGroup(groupName, description, joinCode)
-        console.log(`Successfully created group: ${result}`)
+        // console.log(`Successfully created group: ${result}`)
         onSave()
         window.location.reload()
       } catch (error) {
@@ -22,7 +22,7 @@ const GroupActionModal = ({ show, onHide, onSave, action, studentId }) => {
     } else {
       try {
         const result = await addGroupMember(joinCode, studentId)
-        console.log(`Successfully created group: ${result}`)
+        // console.log(`Successfully created group: ${result}`)
         onSave()
         window.location.reload()
       } catch (error) {

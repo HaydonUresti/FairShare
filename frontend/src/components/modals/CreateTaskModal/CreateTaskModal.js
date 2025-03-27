@@ -13,7 +13,6 @@ const CreateTaskModal = ({ show, onHide, onSave, groupId }) => {
 
   const handleCreateTask = async () => {
     if (!groupId) {
-      console.log('Missing groupId in task creation')
       return
     }
     const taskAttributes = []
@@ -31,7 +30,6 @@ const CreateTaskModal = ({ show, onHide, onSave, groupId }) => {
     }
 
     if (taskAttributes.length !== 0) {
-      console.log(`Missing fields: ${taskAttributes}`)
       return
     }
 

@@ -8,10 +8,10 @@ const router = express.Router()
 
 const registerUser = async (req, res) => {
   try {
-    const { email, password, name, userRole } = req.body
+    const { email, password, name, userRole, googleId } = req.body
     const missingFields = [];
     if (!email) missingFields.push('email')
-    if (!password) missingFields.push('password')
+    if (!password && !googleId) missingFields.push('authentication')
     if (!name) missingFields.push('name')
     if (!userRole) missingFields.push('userRole')
     if (missingFields.length > 0) {
@@ -19,7 +19,7 @@ const registerUser = async (req, res) => {
         .send(
           { message: `All fields are required. Missing fields: ${missingFields.join(', ')}` })
     }
-    const newUser = new UserModel({ email, password, name, userRole })
+    const newUser = new UserModel({ email, password, name, userRole, googleId })
     await newUser.save();
     res.status(201).send({ message: "User registered successfully" })
   } catch (error) {
@@ -33,16 +33,34 @@ const registerUser = async (req, res) => {
 }
 
 const loginUser = async (req, res) => {
-  const { email, password } = req.body
-  if (!email || !password) {
+  const { email, password, googleId } = req.body
+  if (!email || (!password && !googleId)) {
     return res.status(400).send({ message: "All fields are required" })
   }
   try {
     const user = await UserModel.findOne({ email })
+    if (user.googleId && googleId) {
+
+      const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' })
+      return res.status(200).send(
+        {
+          token,
+          message: 'Logged in successfully',
+          user: {
+            id: user._id,
+            email: user.email,
+            role: user.userRole,
+            name: user.name
+          }
+        })
+    }
     if (!user || !userService.validatePassword(password, user.password)) {
       return res.status(401).send({ message: 'Invalid credentials' })
     }
     const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' })
+
+    // I was using the method below rather than the less secure tokens above because 
+    // at least the free tier of Render does not support secure cookies.
 
     // res.cookie('token', token, {
     //   httpOnly: true,
@@ -81,13 +99,16 @@ const logoutUser = async (req, res) => {
 
 const getUserIdByEmail = async (req, res) => {
   try {
-    const userEmail = req.query.email
+    const userEmail = req.params.email
     if (!userEmail) {
       return res.status(400).send({ message: 'Email is required' })
     }
     const response = await UserModel.findOne({ email: userEmail })
+    if (!response) {
+      return res.status(200).send(null)
+    }
     const userId = response._id.toString()
-    res.status(200).send({ userId: userId })
+    res.status(200).send({ userId: userId, userData: response })
   } catch (error) {
     res.status(500).send({ message: 'Server error', error })
   }
@@ -112,7 +133,7 @@ const getUserById = async (req, res) => {
 router.post('/logout', logoutUser)
 router.post('/register', registerUser)
 router.post('/login', loginUser)
-router.get('/getUserIdByEmail', getUserIdByEmail)
+router.get('/getUserIdByEmail/:email', getUserIdByEmail)
 router.get('/:userId', getUserById) // retrieve a user by their ID
 
 

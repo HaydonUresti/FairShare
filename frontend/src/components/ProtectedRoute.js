@@ -11,7 +11,7 @@ const ProtectedRoute = ({ allowedRoles }) => {
   if (userRole === 'Educator') {
     return <Outlet />
   }
-  console.log(`Allowed roles: ${allowedRoles}`)
+  // console.log(`Allowed roles: ${allowedRoles}`)
   if (!allowedRoles.includes(userRole)) {
     return <Navigate to="/unauthorized" /> // Redirect if role doesn't match
   }

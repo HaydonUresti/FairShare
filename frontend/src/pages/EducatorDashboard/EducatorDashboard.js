@@ -1,7 +1,6 @@
 // The page that educator users are taken to after signing in
 import React, { useEffect, useState } from 'react'
 import * as GroupService from '../../services/groupServices.js'
-// import { Navigate } from 'react-router-dom'
 import { useNavigate } from "react-router-dom";
 
 import GroupDisplayComponent from '../../components/GroupDisplayComponent/GroupDisplayComponent.js'
@@ -14,7 +13,6 @@ import { getTaskById } from '../../services/taskService.js'
 import { retrieveSummary } from '../../services/summaryService.js'
 
 export default function EducatorDashboard() {
-  // const { educatorId } = useParams()
   const navigate = useNavigate()
   const educatorId = localStorage.getItem('userId')
 
@@ -37,7 +35,6 @@ export default function EducatorDashboard() {
     const fetchGroups = async () => {
       try {
         const response = await GroupService.getEducatorGroups(educatorId)
-        console.log('Groups:', response.data.groups)
         const retrievedGroups = response ? response.data : []
         setSelectedGroup(response?.data[0])
         setGroups(retrievedGroups)
@@ -127,14 +124,12 @@ export default function EducatorDashboard() {
 
   const handleGroupSelect = (group) => {
     setSelectedGroup(group)
-    console.log('Selected Group:', group)
   }
 
   const handleDeleteGroup = async (e) => {
     e.preventDefault()
     try {
       await GroupService.deleteGroup(selectedGroup?._id)
-      console.log('Successfully deleted the group')
       window.location.reload()
     } catch (error) {
       console.log(`Error deleting group: ${error}`)

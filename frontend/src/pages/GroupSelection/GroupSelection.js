@@ -10,9 +10,6 @@ import * as GroupService from '../../services/groupServices.js'
 export default function GroupSelection() {
   const location = useLocation()
   const [studentId, setStudentId] = useState(location.state)
-
-  // const { studentId } = 
-
   const [groups, setGroups] = useState([])
 
   useEffect(() => {

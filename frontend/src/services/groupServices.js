@@ -27,7 +27,6 @@ export const createGroup = async (groupName, description, joinCode) => {
 export const getEducatorGroups = async (userId) => {
   try {
     const response = await axios.get(`${API_URL}/api/groups/${userId}/groups`)
-    console.log(`Educator groups: ${JSON.stringify(response, null, 2)}`)
     return response
   } catch (error) {
     console.error('Error fetching educator groups: ', error)

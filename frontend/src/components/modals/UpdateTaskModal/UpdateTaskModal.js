@@ -60,7 +60,6 @@ const UpdateTaskModal = ({ show, onHide, taskData, studentsAssigned, onSave }) =
     }
 
     if (!needToUpdateTask) {
-      console.log('No changes to update')
       return onHide()
     }
 

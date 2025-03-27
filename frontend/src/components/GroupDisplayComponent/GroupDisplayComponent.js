@@ -51,7 +51,7 @@ const GroupDisplayComponent = ({ groups, userRole, onGroupSelect, studentId }) =
         show={showCreateOrJoinModal}
         onHide={() => setShowCreateOrJoinModal(false)}
         onSave={(newGroupData) => {
-          console.log('Creating new group:', newGroupData)
+          // console.log('Creating new group:', newGroupData)
           setShowCreateOrJoinModal(false)
         }}
         action={userRole}

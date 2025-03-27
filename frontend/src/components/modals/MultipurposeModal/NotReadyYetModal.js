@@ -1,21 +1,15 @@
-import React, { useState } from 'react';
-import { Modal, Button } from 'react-bootstrap';
-
-// content = {
-//   title: '',
-//   text: ''
-//   color: '',
-// }
+import React, { useState } from 'react'
+import { Modal, Button } from 'react-bootstrap'
 
 const MultipurposeModal = (content) => {
   const headerStyle = {
     backgroundColor: content?.color
   }
 
-  const [show, setShow] = useState(false);
+  const [show, setShow] = useState(false)
 
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  const handleClose = () => setShow(false)
+  const handleShow = () => setShow(true)
 
   return (
     <div>
@@ -38,7 +32,7 @@ const MultipurposeModal = (content) => {
         </Modal.Footer>
       </Modal>
     </div>
-  );
-};
+  )
+}
 
 export default MultipurposeModal

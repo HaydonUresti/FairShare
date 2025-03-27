@@ -10,7 +10,7 @@ const authenticateToken = (req, res, next) => {
     if (err) {
       return res.status(403).send({ message: 'Invalid token' })
     }
-    req.user = user; // Attach the user info (e.g., userId) to the request
+    req.user = user 
     next()
   })
 }

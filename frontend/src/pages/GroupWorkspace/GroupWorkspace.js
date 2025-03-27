@@ -11,11 +11,7 @@ export default function GroupWorkspace() {
   const location = useLocation()
 
   const { groupId, studentId } = location.state || localStorage.getItem('userId')
-  const [pageParams, setPageParams] = useState(location.state)
-  // const [state, setState] = useState(location.state || { defaultValue: "Fallback Data" })
 
-  const currentUser = localStorage.getItem('userId')
-  // const groupData = location.state
   const groupData = groupId
 
 
@@ -37,7 +33,6 @@ export default function GroupWorkspace() {
     const fetchGroupData = async () => {
       try {
         const response = await getGroupById(groupData)
-        console.log("Fetched Group Data:", response.groupData)
         setGroupName(response.groupData.groupName)
         setGroupMembers(response.groupData.members)
         setGroupDescription(response.groupData.description)
