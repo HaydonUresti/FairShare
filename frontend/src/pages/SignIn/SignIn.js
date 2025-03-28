@@ -58,7 +58,7 @@ export default function SignIn() {
   const handleRegister = async (e) => {
     e.preventDefault()
     try {
-      await registerUser(name, email, password, userRole)
+      await registerUser({name, email, password, userRole})
     } catch (error) {
       console.log('Register failed:', error)
     }
